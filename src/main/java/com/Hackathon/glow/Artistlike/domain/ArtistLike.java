@@ -22,11 +22,11 @@ public class ArtistLike {
 
 
     @ManyToOne
-    @Column(name="from_user_id")
+    @JoinColumn(name="from_user_id")
     private User fromUser;
 
     @ManyToOne
-    @Column(name="to_user_id")
+    @JoinColumn(name="to_user_id")
     private User toUser;
 
 
