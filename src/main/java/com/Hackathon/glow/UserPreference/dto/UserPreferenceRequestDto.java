@@ -14,7 +14,8 @@ import java.util.List;
 public class UserPreferenceRequestDto {
 
     private Long userId;
-    private List<PreferenceAnswer> answers;
+    @com.fasterxml.jackson.annotation.JsonProperty("preferenceAnswers")
+    private List<PreferenceAnswerRequestDto> preferenceAnswers;
 
 }
 //PreferenceAnswer을 바로 받는게 아니라 answeritem이라는 클래스를 여기에 새로 생성해서

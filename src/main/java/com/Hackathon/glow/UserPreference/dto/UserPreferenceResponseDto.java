@@ -17,14 +17,17 @@ import java.util.stream.Collectors;
 
 public class UserPreferenceResponseDto {
 
+    private Long userId;
     private Long userPreferenceId;
     private List<PreferenceAnswerResponseDto> preferenceAnswers;
 
     //dto를 엔티티로 변환
+    @com.fasterxml.jackson.annotation.JsonProperty("preferenceAnswers")
     public static UserPreferenceResponseDto from(UserPreference userPreference) {
         if(userPreference == null) return null;
 
         return UserPreferenceResponseDto.builder()
+                .userId(userPreference.getUser().getUserId())
                 .userPreferenceId(userPreference.getUserPreferenceId())
                 .preferenceAnswers(
                         (userPreference.getAnswers()==null? Collections.<com.Hackathon.glow.UserPreference.domain.PreferenceAnswer>emptyList():userPreference.getAnswers())

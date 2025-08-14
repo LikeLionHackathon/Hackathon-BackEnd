@@ -13,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 
-public class ExhibitionArtwork {
+public class  ExhibitionArtwork {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

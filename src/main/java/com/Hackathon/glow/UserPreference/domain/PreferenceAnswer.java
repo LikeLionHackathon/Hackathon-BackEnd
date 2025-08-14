@@ -19,10 +19,10 @@ public class PreferenceAnswer {
     @JoinColumn(name="userPreferenceId")
     private UserPreference userPreference;
 
-    private Long QuestionId;
+    private Long questionId;
     private String QuestionContent;
 
-    private Long AnswerId;
+    private Long answerId;
     private String AnswerContent;
 
 

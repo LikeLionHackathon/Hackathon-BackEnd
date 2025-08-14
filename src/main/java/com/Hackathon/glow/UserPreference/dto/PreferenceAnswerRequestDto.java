@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PreferenceAnswerRequestDto {
 
-    private String QuestionContext;
-    private String AnswerContext;
+    private Long questionId;
+    private Long answerId;
 
     public PreferenceAnswerRequestDto from(PreferenceAnswer preferenceAnswer) {
         if(preferenceAnswer==null) return null;
 
-        return new PreferenceAnswerRequestDto(preferenceAnswer.getQuestionContent(), preferenceAnswer.getAnswerContent());
+        return new PreferenceAnswerRequestDto(preferenceAnswer.getQuestionId(), preferenceAnswer.getAnswerId());
 
 
     }

@@ -25,7 +25,12 @@ public class UserPreference {
     @JoinColumn(name="userId")
     private User user;
 
+    @Builder.Default
     @OneToMany(mappedBy="userPreference",cascade=CascadeType.ALL,orphanRemoval = true)
     private List<PreferenceAnswer> answers=new ArrayList<>();
 
+    public void addAnswer(PreferenceAnswer answer) {
+        answers.add(answer);
+        answer.setUserPreference(this);
+    }
 }

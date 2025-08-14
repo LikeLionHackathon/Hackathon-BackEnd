@@ -23,13 +23,14 @@ public class UserPreferenceController {
     //유저 취향 생성
     @PostMapping
     public ResponseEntity<UserPreferenceResponseDto> createPreference(@Valid @RequestBody UserPreferenceRequestDto requestDto) {
+
         return ResponseEntity.ok(userPreferenceService.createUserPreference(requestDto));
 
     }
 
     //유저 취향 조회
-    @GetMapping
-    public ResponseEntity<List<PreferenceAnswerResponseDto>> getPreferences( @RequestParam("userId") Long userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<PreferenceAnswerResponseDto>> getPreferences( @PathVariable Long userId) {
         List<PreferenceAnswerResponseDto> body = userPreferenceService.getUserPreference(userId);
         return ResponseEntity.ok(body);
     }
