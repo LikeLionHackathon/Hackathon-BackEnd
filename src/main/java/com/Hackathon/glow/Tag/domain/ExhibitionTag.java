@@ -25,6 +25,8 @@ public class ExhibitionTag {
     @JoinColumn(name="TagId")
     private Tag tag;
 
-
-
+    public ExhibitionTag(Exhibition exhibition, Tag tag) {
+        this.exhibition = exhibition;
+        this.tag = tag;
+    }
 }

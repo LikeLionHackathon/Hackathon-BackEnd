@@ -6,12 +6,8 @@ import lombok.*;
 
 @Entity
 @Table(name="tag")
-@Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-
+@Getter
 public class Tag {
 
     @Id
@@ -20,4 +16,7 @@ public class Tag {
 
     private String tagName;
 
+    public Tag(String tagName) {
+        this.tagName = tagName;
+    }
 }
