@@ -1,9 +1,8 @@
-package com.Hackathon.glow.ExhibitionLike.controller;
+package com.Hackathon.glow.exhibitionlike.controller;
 
-import com.Hackathon.glow.ExhibitionLike.dto.ExhibitionLikeRequest;
-import com.Hackathon.glow.ExhibitionLike.dto.ExhibitionLikeResponse;
-import com.Hackathon.glow.ExhibitionLike.service.ExhibitionLikeService;
-import com.Hackathon.glow.exhibitionrate.service.ExhibitionRateService;
+import com.Hackathon.glow.exhibitionlike.dto.ExhibitionLikeRequest;
+import com.Hackathon.glow.exhibitionlike.dto.ExhibitionLikeResponse;
+import com.Hackathon.glow.exhibitionlike.service.ExhibitionLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

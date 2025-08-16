@@ -1,12 +1,9 @@
-package com.Hackathon.glow.Tag.repository;
+package com.Hackathon.glow.tag.repository;
 
-import com.Hackathon.glow.Tag.domain.Tag;
-import com.Hackathon.glow.exhibition.domain.Exhibition;
+import com.Hackathon.glow.tag.domain.Tag;
+
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-
-import java.util.List;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
 

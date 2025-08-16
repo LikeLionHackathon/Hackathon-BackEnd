@@ -20,6 +20,8 @@ public class ExhibitionRequest {
     private String description;
     private String posterImage;
     private LocalDate registeredDate;
+    private boolean isOngoing=true;
+
 
     public Exhibition toEntity(){
         return Exhibition.builder()

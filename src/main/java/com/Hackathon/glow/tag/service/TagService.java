@@ -1,9 +1,10 @@
-package com.Hackathon.glow.Tag.service;
+package com.Hackathon.glow.tag.service;
 
-import com.Hackathon.glow.Tag.domain.ExhibitionTag;
-import com.Hackathon.glow.Tag.domain.Tag;
-import com.Hackathon.glow.Tag.repository.ExhibitionTagRepository;
-import com.Hackathon.glow.Tag.repository.TagRepository;
+import com.Hackathon.glow.tag.domain.ExhibitionTag;
+import com.Hackathon.glow.tag.domain.Tag;
+import com.Hackathon.glow.tag.dto.ExhibitionTagResponse;
+import com.Hackathon.glow.tag.repository.ExhibitionTagRepository;
+import com.Hackathon.glow.tag.repository.TagRepository;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +48,10 @@ public class TagService {
     }
 
     //전시 id로 태그 조회
-    public List<Tag> getTagsByExhibitionId(Long exhibitionId) {
-        return exhibitionTagRepository.findTagByExhibitionId(exhibitionId)
+    public List<ExhibitionTagResponse> getTagsByExhibitionId(Long exhibitionId) {
+        return exhibitionTagRepository.findByExhibition_Id(exhibitionId)
                 .stream()
-                .map(ExhibitionTag::getTag)
+                .map(ExhibitionTagResponse::from)
                 .toList();
     }
 

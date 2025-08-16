@@ -10,13 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ArtworkRepository extends JpaRepository<Artwork, Long> {
-    //전시 제목으로 찾기
-    List<Artwork> findByExhibitiontitle(String title);
-
-    //전시 id로 찾기
-    List<ExhibitionArtwork> findByExhibitionid(Long id);
-
-    //전시 엔티티로 찾기
-    List<ExhibitionArtwork> findbyExhibition(Exhibition exhibition);
 
 }

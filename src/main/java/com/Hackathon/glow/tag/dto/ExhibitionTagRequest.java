@@ -1,4 +1,4 @@
-package com.Hackathon.glow.Tag.dto;
+package com.Hackathon.glow.tag.dto;
 
 public class ExhibitionTagRequest {
 }

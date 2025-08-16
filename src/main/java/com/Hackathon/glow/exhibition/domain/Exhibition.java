@@ -1,6 +1,6 @@
 package com.Hackathon.glow.exhibition.domain;
 
-import com.Hackathon.glow.Tag.domain.ExhibitionTag;
+import com.Hackathon.glow.tag.domain.ExhibitionTag;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,9 +35,11 @@ public class Exhibition {
     private LocalDate registeredDate;
 
     //전시중/ 전시끝 표시
+    @Builder.Default
     private boolean isOngoing=true;
 
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    //exhibitionTag에서 exhibition을 참조하는 필드 이름은 exhibition!
+    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExhibitionTag> exhibitionTags = new ArrayList<>();
 
 }

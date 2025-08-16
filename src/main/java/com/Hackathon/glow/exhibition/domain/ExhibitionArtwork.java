@@ -20,12 +20,12 @@ public class ExhibitionArtwork {
     private Long id;
 
 
-    @ManyToOne
-    @JoinColumn(name="exhibitionId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="exhibitionId", nullable = false)
     private Exhibition exhibition;
 
-    @ManyToOne
-    @JoinColumn(name="ArtworkId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ArtworkId", nullable = false)
     private Artwork artwork;
 
 

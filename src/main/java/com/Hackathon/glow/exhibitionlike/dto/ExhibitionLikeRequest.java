@@ -1,4 +1,4 @@
-package com.Hackathon.glow.ExhibitionLike.dto;
+package com.Hackathon.glow.exhibitionlike.dto;
 
 import lombok.*;
 

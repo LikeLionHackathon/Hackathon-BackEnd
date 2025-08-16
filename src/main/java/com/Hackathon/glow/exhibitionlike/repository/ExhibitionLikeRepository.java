@@ -1,6 +1,6 @@
-package com.Hackathon.glow.ExhibitionLike.repository;
+package com.Hackathon.glow.exhibitionlike.repository;
 
-import com.Hackathon.glow.ExhibitionLike.domain.ExhibitionLike;
+import com.Hackathon.glow.exhibitionlike.domain.ExhibitionLike;
 import com.Hackathon.glow.User.domain.User;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import org.springframework.data.jpa.repository.JpaRepository;

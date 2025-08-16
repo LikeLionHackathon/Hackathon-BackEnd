@@ -10,20 +10,12 @@ import java.util.List;
 @Repository
 
 public interface ExhibitionRepository extends JpaRepository<Exhibition, Long> {
+//태그 id로 전시 조회
+List<Exhibition> findDistinctByExhibitionTags_Tag_Id(Long tagId);
 
-    //전시 : 제목으로 검색
-    List<Exhibition> findByTitle(String title);
+//태그 이름으로 전시 조회
+    List<Exhibition> findDistinctByExhibitionTags_Tag_TagName(String tagName);
 
-    //id 로
-
-    //전시 : 작가로 검색
-    List<Exhibition> findByTeamName(String teamName);
-
-//전시 : 위치로 검색
-    List<Exhibition> findByLocation(String location);
-
-    //전시:tag별로 검색
-    List<Exhibition> findByTagName(String tagName);
 }
 
 //전시 등록정보 조회

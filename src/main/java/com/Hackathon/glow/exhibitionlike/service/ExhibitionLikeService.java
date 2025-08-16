@@ -1,9 +1,9 @@
-package com.Hackathon.glow.ExhibitionLike.service;
+package com.Hackathon.glow.exhibitionlike.service;
 
-import com.Hackathon.glow.ExhibitionLike.domain.ExhibitionLike;
-import com.Hackathon.glow.ExhibitionLike.dto.ExhibitionLikeRequest;
-import com.Hackathon.glow.ExhibitionLike.dto.ExhibitionLikeResponse;
-import com.Hackathon.glow.ExhibitionLike.repository.ExhibitionLikeRepository;
+import com.Hackathon.glow.exhibitionlike.domain.ExhibitionLike;
+import com.Hackathon.glow.exhibitionlike.dto.ExhibitionLikeRequest;
+import com.Hackathon.glow.exhibitionlike.dto.ExhibitionLikeResponse;
+import com.Hackathon.glow.exhibitionlike.repository.ExhibitionLikeRepository;
 import com.Hackathon.glow.User.domain.User;
 import com.Hackathon.glow.User.repository.UserRepository;
 import com.Hackathon.glow.exhibition.domain.Exhibition;

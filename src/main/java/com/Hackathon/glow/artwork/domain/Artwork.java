@@ -21,4 +21,5 @@ public class Artwork {
     private String title;
     private String artworkUrl;
 
+
 }

@@ -1,4 +1,4 @@
-package com.Hackathon.glow.ExhibitionLike.domain;
+package com.Hackathon.glow.exhibitionlike.domain;
 
 
 import com.Hackathon.glow.User.domain.User;

@@ -1,4 +1,4 @@
-package com.Hackathon.glow.Tag.domain;
+package com.Hackathon.glow.tag.domain;
 
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import jakarta.persistence.*;
@@ -17,11 +17,11 @@ public class ExhibitionTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="exhibitionId")
     private Exhibition exhibition;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="TagId")
     private Tag tag;
 

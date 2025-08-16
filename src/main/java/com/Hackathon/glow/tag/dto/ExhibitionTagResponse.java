@@ -1,6 +1,6 @@
-package com.Hackathon.glow.Tag.dto;
+package com.Hackathon.glow.tag.dto;
 
-import com.Hackathon.glow.Tag.domain.ExhibitionTag;
+import com.Hackathon.glow.tag.domain.ExhibitionTag;
 import lombok.*;
 
 @Getter

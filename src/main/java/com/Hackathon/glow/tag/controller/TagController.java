@@ -1,7 +1,7 @@
-package com.Hackathon.glow.Tag.controller;
+package com.Hackathon.glow.tag.controller;
 
-import com.Hackathon.glow.Tag.domain.Tag;
-import com.Hackathon.glow.Tag.service.TagService;
+import com.Hackathon.glow.tag.dto.ExhibitionTagResponse;
+import com.Hackathon.glow.tag.service.TagService;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ public class TagController {
 private final TagService tagService;
     //전시 id로 태그 조회
     @GetMapping("/exhibition/{exhibitionId}")
-    public List<Tag> getTagsByExhibitionId(@PathVariable Long exhibitionId) {
+    public List<ExhibitionTagResponse> getTagsByExhibitionId(@PathVariable Long exhibitionId) {
         return tagService.getTagsByExhibitionId(exhibitionId);
     }
 
