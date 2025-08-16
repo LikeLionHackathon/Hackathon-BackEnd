@@ -1,33 +1,32 @@
-package com.Hackathon.glow.exhibition.domain;
+package com.Hackathon.glow.Tag.domain;
 
-import com.Hackathon.glow.artwork.domain.Artwork;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name="exhibitionartwork")
+@Table(name="exhibitiontag")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-
-public class ExhibitionArtwork {
+public class ExhibitionTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @ManyToOne
     @JoinColumn(name="exhibitionId")
     private Exhibition exhibition;
 
     @ManyToOne
-    @JoinColumn(name="ArtworkId")
-    private Artwork artwork;
+    @JoinColumn(name="TagId")
+    private Tag tag;
 
-
-
+    public ExhibitionTag(Exhibition exhibition, Tag tag) {
+        this.exhibition = exhibition;
+        this.tag = tag;
+    }
 }

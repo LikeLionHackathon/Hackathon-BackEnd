@@ -44,11 +44,8 @@ public class ExhibitionResponse {
                         .toList()
 
                 )
-                .tags(tags.stream()
-                        .map(Tag::getTagName)
-                        .filter(Objects::nonNull)
-                        .toList())
+                .tags(tags.stream().map(tag ->tag.getTagName()).toList())
                 .build();
-        }
+    }
 
 }
