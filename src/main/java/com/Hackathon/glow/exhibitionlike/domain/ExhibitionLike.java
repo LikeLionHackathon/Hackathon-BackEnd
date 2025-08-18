@@ -1,7 +1,7 @@
 package com.Hackathon.glow.exhibitionlike.domain;
 
 
-import com.Hackathon.glow.User.domain.User;
+import com.Hackathon.glow.user.domain.User;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import jakarta.persistence.*;
 

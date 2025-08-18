@@ -1,6 +1,6 @@
 package com.Hackathon.glow.exhibitionrate.dto;
 
-import com.Hackathon.glow.User.domain.User;
+import com.Hackathon.glow.user.domain.User;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import com.Hackathon.glow.exhibitionrate.domain.ExhibitionRate;
 

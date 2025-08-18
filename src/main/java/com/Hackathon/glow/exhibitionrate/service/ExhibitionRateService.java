@@ -1,7 +1,7 @@
 package com.Hackathon.glow.exhibitionrate.service;
 
-import com.Hackathon.glow.User.domain.User;
-import com.Hackathon.glow.User.repository.UserRepository;
+import com.Hackathon.glow.user.domain.User;
+import com.Hackathon.glow.user.repository.UserRepository;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import com.Hackathon.glow.exhibition.repository.ExhibitionRepository;
 import com.Hackathon.glow.exhibitionrate.domain.ExhibitionRate;
@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
