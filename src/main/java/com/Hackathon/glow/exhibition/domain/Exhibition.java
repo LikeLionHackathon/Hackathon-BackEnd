@@ -29,17 +29,21 @@ public class Exhibition {
     private String teamName;
     private String location;
     private String description;
-    private String posterImage;
-
+    private String posterImageUrl;
     //전시 등록 날짜
     private LocalDate registeredDate;
 
-    //전시중/ 전시끝 표시
-    @Builder.Default
-    private boolean isOngoing=true;
+    private Boolean isOngoing = true;
 
-    //exhibitionTag에서 exhibition을 참조하는 필드 이름은 exhibition!
-    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ExhibitionTag> exhibitionTags = new ArrayList<>();
-
+    public Exhibition(String title, LocalDate startDate, LocalDate endDate, String teamName,
+        String location, String description, String posterImageUrl, LocalDate registeredDate) {
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.teamName = teamName;
+        this.location = location;
+        this.description = description;
+        this.posterImageUrl = posterImageUrl;
+        this.registeredDate = registeredDate;
+    }
 }

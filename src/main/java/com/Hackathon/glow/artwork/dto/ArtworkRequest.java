@@ -17,7 +17,6 @@ public class ArtworkRequest {
 
     public Artwork toEntity(){
         return Artwork.builder()
-                .title(title)
                 .artworkUrl(artworkUrl)
                 .build();
     }

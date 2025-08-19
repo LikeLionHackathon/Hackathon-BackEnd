@@ -20,14 +20,16 @@ public class ExhibitionArtwork {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="exhibitionId", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="exhibitionId")
     private Exhibition exhibition;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ArtworkId", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="artworkId")
     private Artwork artwork;
 
-
-
+    public ExhibitionArtwork(Exhibition exhibition, Artwork artwork) {
+        this.exhibition = exhibition;
+        this.artwork = artwork;
+    }
 }

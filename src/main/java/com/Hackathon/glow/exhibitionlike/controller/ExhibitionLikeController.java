@@ -17,7 +17,7 @@ public class ExhibitionLikeController {
     private final ExhibitionLikeService exhibitionLikeService;
 
 
-    //좋아요 생샹
+    //좋아요 생성
     @PostMapping
     public ResponseEntity<String> createExhibitionLike(@RequestBody ExhibitionLikeRequest request)
     {
@@ -25,14 +25,14 @@ public class ExhibitionLikeController {
         return ResponseEntity.ok(liked);
     }
 
-    //좋아요 ㅈ목록 조회 (유저별)
+    //좋아요 목록 조회 (유저별)
     @GetMapping("/{userId}")
     public ResponseEntity<List<ExhibitionLikeResponse>> getAllExhibitionLikes(@RequestParam Long userId) {
         List<ExhibitionLikeResponse> response = exhibitionLikeService.getExhibitionLikesByUser(userId);
         return ResponseEntity.ok(response);
     }
-    //좋아여 취소
 
+    //좋아여 취소
     public ResponseEntity<Void> cancelLike(@RequestParam Long userId,@RequestParam Long exhibitionId)
     {
         exhibitionLikeService.cancelExhibitionLike(userId,exhibitionId);

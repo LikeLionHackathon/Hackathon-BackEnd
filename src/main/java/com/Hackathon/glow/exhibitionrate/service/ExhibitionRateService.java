@@ -57,7 +57,6 @@ public class ExhibitionRateService {
                 .orElseThrow(() -> new IllegalArgumentException("전시를 찾을 수 없습니다. id=" + exhibitionId));
 
         //리뷰 조회
-
         List<ExhibitionRate> rates = exhibitionRateRepository.findByExhibitionId(exhibitionId);
 
         //return

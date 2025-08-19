@@ -1,4 +1,4 @@
-package com.Hackathon.glow;
+package com.Hackathon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GlowApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GlowApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GlowApplication.class, args);
+    }
 
 }

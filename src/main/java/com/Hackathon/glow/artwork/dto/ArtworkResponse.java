@@ -16,7 +16,7 @@ public class ArtworkResponse {
     public static ArtworkResponse from(Artwork artwork){
         return ArtworkResponse.builder()
                 //.id(artwork.getId())
-                .title(artwork.getTitle())
+//                .title(artwork.getTitle())
                 .artworkUrl(artwork.getArtworkUrl())
                 .build();
     }

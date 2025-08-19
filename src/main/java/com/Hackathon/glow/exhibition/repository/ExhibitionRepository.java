@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface ExhibitionRepository extends JpaRepository<Exhibition, Long> {
 //태그 id로 전시 조회
-List<Exhibition> findDistinctByExhibitionTags_Tag_Id(Long tagId);
+//List<Exhibition> findDistinctByExhibitionTags_Tag_Id(Long tagId);
 
 //태그 이름으로 전시 조회
-    List<Exhibition> findDistinctByExhibitionTags_Tag_TagName(String tagName);
+//    List<Exhibition> findDistinctByExhibitionTags_Tag_TagName(String tagName);
 
 }
 

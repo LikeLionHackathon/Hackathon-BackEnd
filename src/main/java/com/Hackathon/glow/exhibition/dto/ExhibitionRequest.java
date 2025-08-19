@@ -18,22 +18,10 @@ public class ExhibitionRequest {
     private String teamName;
     private String location;
     private String description;
-    private String posterImage;
     private LocalDate registeredDate;
-    private boolean isOngoing=true;
 
-
-    public Exhibition toEntity(){
-        return Exhibition.builder()
-                .title(title)
-                .startDate(startDate)
-                .endDate(endDate)
-                .teamName(teamName)
-                .location(location)
-                .description(description)
-                .posterImage(posterImage)
-                .registeredDate(registeredDate)
-                .build();
-
+    public  Exhibition toEntity(String postImageUrl) {
+        return new Exhibition(title, startDate, endDate, teamName, location, description,
+            postImageUrl, registeredDate);
     }
 }

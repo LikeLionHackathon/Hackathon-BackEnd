@@ -10,14 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/exhibitions/{exhibitionId}/reviews")
+@RequestMapping("/api/v1/exhibitions")
 @RequiredArgsConstructor
 public class ExhibitionRateController {
 
     private final ExhibitionRateService exhibitionRateService;
 
     //전시별 리뷰 생성
-    @PostMapping
+    @PostMapping("/{exhibitionId}/reviews")
     public ResponseEntity<ExhibitionRateResponse> createExhibitionRate(@RequestBody ExhibitionRateRequest exhibitionRateRequest) {
         ExhibitionRateResponse response=exhibitionRateService.createReview(exhibitionRateRequest);
         return ResponseEntity.ok(response);
@@ -26,10 +26,10 @@ public class ExhibitionRateController {
 
 
     //전시별 리뷰 조회
-    @GetMapping
-    public ResponseEntity<ExhibitionRateListResponse> getExhibitionRates(@PathVariable Long ExhibitionId)
+    @GetMapping("/{exhibitionId}/reviews")
+    public ResponseEntity<ExhibitionRateListResponse> getExhibitionRates(@PathVariable Long exhibitionId)
     {
-        ExhibitionRateListResponse response = exhibitionRateService.getExhibitionRateList(ExhibitionId);
+        ExhibitionRateListResponse response = exhibitionRateService.getExhibitionRateList(exhibitionId);
         return ResponseEntity.ok(response);
     }
 
