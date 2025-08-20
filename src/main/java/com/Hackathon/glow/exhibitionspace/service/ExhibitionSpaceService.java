@@ -19,7 +19,8 @@ public class ExhibitionSpaceService {
     private final ExhibitionSpaceRepository exhibitionSpaceRepository;
 
     //전시공간 등록
-    @Transactional
+    @Transactional(readOnly = true)
+
     public ExhibitionSpaceResponseDto createSpace(ExhibitionSpaceRequestDto request, User user)
     {
         ExhibitionSpace space = ExhibitionSpace.builder()
@@ -49,7 +50,6 @@ public class ExhibitionSpaceService {
     }
 
     //전시공간 전체 조회
-
     @Transactional(readOnly = true)
     public List<ExhibitionSpaceResponseDto> getAllSpaces()
     {

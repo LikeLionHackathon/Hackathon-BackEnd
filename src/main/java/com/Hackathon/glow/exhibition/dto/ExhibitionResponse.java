@@ -26,6 +26,8 @@ public class ExhibitionResponse {
     private String description;
     private String posterImage;
     private List<String> artworkUrl;
+
+    @Builder.Default
     private boolean isOngoing=true;
     private List<String> tags;
     //전시 랑, 작품 리스트 받아오게 ..

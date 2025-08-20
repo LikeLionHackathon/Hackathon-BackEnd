@@ -41,7 +41,7 @@ public class ExhibitionSpace {
     private String imageUrl;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="userId",unique=true)
+    @JoinColumn(name="userId")
     //공실 주인 - N:1 매핑 ( 하나의 주인이 공실 여러개 )
     private User owner;
 

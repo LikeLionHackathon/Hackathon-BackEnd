@@ -33,6 +33,7 @@ public class Exhibition {
     //전시 등록 날짜
     private LocalDate registeredDate;
 
+    @Builder.Default
     private Boolean isOngoing = true;
 
     public Exhibition(String title, LocalDate startDate, LocalDate endDate, String teamName,
