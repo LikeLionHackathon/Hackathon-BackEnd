@@ -50,7 +50,7 @@ public class ExhibitionUserService {
     //방문한 전시 조회 ( 유저별 )
     public List<ExhibitionUserResponse> getVisitedExhibitionUser(Long UserId) {
 
-        List<ExhibitionUser> visitedList=exhibitionUserRepository.findByUserId(UserId);
+        List<ExhibitionUser> visitedList=exhibitionUserRepository.findByUser_UserId(UserId);
 
         return visitedList.stream().map(ExhibitionUserResponse::from).collect(Collectors.toList());
 

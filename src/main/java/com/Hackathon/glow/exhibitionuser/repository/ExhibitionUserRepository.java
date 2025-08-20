@@ -8,6 +8,6 @@ import java.util.List;
 public interface ExhibitionUserRepository extends JpaRepository<ExhibitionUser, Long> {
 
     //특정 유저 id에 해당하는 모든 방문 기록을 조회
-    List<ExhibitionUser> findByUserId(Long userId);
+    List<ExhibitionUser> findByUser_UserId(Long userId);
 
 }
