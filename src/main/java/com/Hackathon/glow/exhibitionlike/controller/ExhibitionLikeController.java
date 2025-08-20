@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/exhibitions/{exhibitionId}/likes")
+@RequestMapping("/api/v1/exhibitions")
 @RequiredArgsConstructor
 
 public class ExhibitionLikeController {
@@ -18,7 +18,7 @@ public class ExhibitionLikeController {
 
 
     //좋아요 생성
-    @PostMapping
+    @PostMapping("/{exhibitionId}/likes")
     public ResponseEntity<String> createExhibitionLike(@RequestBody ExhibitionLikeRequest request)
     {
         String liked=exhibitionLikeService.createExhibitionLike(request);
@@ -26,7 +26,7 @@ public class ExhibitionLikeController {
     }
 
     //좋아요 목록 조회 (유저별)
-    @GetMapping("/{userId}")
+    @GetMapping("/likes")
     public ResponseEntity<List<ExhibitionLikeResponse>> getAllExhibitionLikes(@RequestParam Long userId) {
         List<ExhibitionLikeResponse> response = exhibitionLikeService.getExhibitionLikesByUser(userId);
         return ResponseEntity.ok(response);
@@ -37,6 +37,5 @@ public class ExhibitionLikeController {
     {
         exhibitionLikeService.cancelExhibitionLike(userId,exhibitionId);
         return ResponseEntity.noContent().build();
-
     }
 }

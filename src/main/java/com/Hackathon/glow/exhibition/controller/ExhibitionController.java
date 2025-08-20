@@ -6,6 +6,7 @@ import com.Hackathon.glow.exhibition.dto.ExhibitionRequest;
 import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
 import com.Hackathon.glow.exhibition.service.ExhibitionService;
 import java.io.IOException;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,24 +37,22 @@ public class ExhibitionController {
         return ResponseEntity.ok(exhibitionService.register(request, posterImage, artworkImages));
     }
 
-    @PostMapping(value = "/api/v1/exhibitions/recommend", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> recommendExhibition(
+    @PostMapping(value = "/recommend", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, Object>> recommendExhibition(
         @RequestPart("text") String text,
         @RequestPart(value = "images", required = false) List<MultipartFile> images
     ) throws IOException {
 
-        // Python 서버 URL
         String pythonUrl = "http://localhost:8000/recommend";
 
-        // form-data body 만들기
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("text", text);
 
         if (images != null) {
-            for (MultipartFile file : images)
+            for (MultipartFile file : images) {
                 body.add("artworkImages",
-                    new MultipartInputStreamFileResource(file.getInputStream(),
-                        file.getOriginalFilename()));
+                    new MultipartInputStreamFileResource(file.getInputStream(), file.getOriginalFilename()));
+            }
         }
 
         HttpHeaders headers = new HttpHeaders();
@@ -62,9 +61,8 @@ public class ExhibitionController {
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(pythonUrl, requestEntity, String.class);
+        ResponseEntity<Map> response = restTemplate.postForEntity(pythonUrl, requestEntity, Map.class);
 
-        // 그대로 클라이언트에게 리턴
         return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 

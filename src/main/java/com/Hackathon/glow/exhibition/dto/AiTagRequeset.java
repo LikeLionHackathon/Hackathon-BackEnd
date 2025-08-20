@@ -26,6 +26,7 @@ public class AiTagRequeset {
         this.id = exhibition.getId();
         this.title = exhibition.getTitle();
         this.startDate = exhibition.getStartDate();
+        this.location = exhibition.getLocation();
         this.endDate = exhibition.getEndDate();
         this.teamName = exhibition.getTeamName();
         this.description = exhibition.getDescription();
