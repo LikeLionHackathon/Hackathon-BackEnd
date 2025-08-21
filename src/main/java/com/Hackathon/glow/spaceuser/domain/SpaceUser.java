@@ -19,11 +19,12 @@ public class SpaceUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //공간 사용하는 작가
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
-
+    //공실
     @ManyToOne
     @JoinColumn(name = "exhibitionspaceId")
     private ExhibitionSpace exhibitionSpace;

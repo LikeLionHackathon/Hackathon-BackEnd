@@ -26,6 +26,9 @@ public class ExhibitionUserResponse {
     //전시 방문 날짜
     private LocalDate visitedDate;
 
+    //내가 매긴 별점
+
+
     public static ExhibitionUserResponse from(ExhibitionUser exhibitionUser) {
         return ExhibitionUserResponse.builder()
                 .exhibitionId(exhibitionUser.getExhibition().getId())
