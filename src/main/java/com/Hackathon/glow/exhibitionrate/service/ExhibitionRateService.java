@@ -38,7 +38,6 @@ public class ExhibitionRateService {
         ExhibitionRate saved = exhibitionRateRepository.save(
                 ExhibitionRate.builder()
                         .rate(request.getRate())
-                        .content(request.getContent())
                         .user(user)
                         .exhibition(exhibition)
                         .build()

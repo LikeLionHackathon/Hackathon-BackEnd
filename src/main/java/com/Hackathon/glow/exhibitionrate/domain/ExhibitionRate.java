@@ -29,9 +29,6 @@ public class ExhibitionRate {
     @Min(1) @Max(5)
     private Long rate;
 
-    //한줄평
-    @Size(max = 500)
-    private String content;
 
     @ManyToOne
     @JoinColumn(name="userId")
@@ -43,6 +40,5 @@ public class ExhibitionRate {
     private Exhibition exhibition;
 
 
-    private LocalDate createdAt;
 
 }
