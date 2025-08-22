@@ -1,45 +1,45 @@
 package com.Hackathon.glow.user.service;
 
-import com.Hackathon.glow.user.domain.User;
-import com.Hackathon.glow.user.dto.UserRequest;
-import com.Hackathon.glow.user.dto.UserResponse;
-import com.Hackathon.glow.user.repository.UserRepository;
-import com.Hackathon.glow.userpreference.domain.UserPreference;
-import com.Hackathon.glow.userpreference.repository.UserPreferenceRepository;
+
+import com.Hackathon.generic.login.user.UserRepository;
+import com.Hackathon.generic.login.user.UserRequest;
+import com.Hackathon.generic.login.user.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserPreferenceRepository userPreferenceRepository;
+    private final PasswordEncoder passwordEncoder;
 
     //유저 생성
+//유저 id를 받아서 .. db에서 찾고 생성
     public Long createUser(UserRequest userRequest) {
 
-        //유저 저장
-        User saved =userRepository.save(userRequest.toEntity());
-        return saved.getUserId();
+        //request ->entity 변환 (
+        User user =userRequest.toEntity();
+
+        //비밀번호 암호화 적용
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
+        //저장
+        userRepository.save(user);
+        return user.getId();
 
     }
 
-    //유저 정보 조회
-    @Transactional(readOnly = true)
-    public UserResponse getUser(Long userId) {
+    //유저 조회
+    public UserResponse getUserById(Long userId)
+    {
         //유저 조회
-        User user=userRepository.findByUserId(userId)
-                .orElseThrow(()->new IllegalArgumentException("유저가 조회되지 않습니다 :"+ userId));
+        User user = userRepository.findById(userId).orElseThrow(()->new IllegalArgumentException("유저가 조회되지 않습니다."));
 
-        //유저 취향 정보 조회
-        UserPreference userPreference =userPreferenceRepository.findByUser(user)
-                .orElse(null);
-
-        return UserResponse.from(user,userPreference);
-
+        return UserResponse.from(user);
     }
-
 }

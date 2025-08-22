@@ -1,33 +1,36 @@
 package com.Hackathon.glow.user.controller;
 
+import com.Hackathon.generic.login.user.UserRequest;
+import com.Hackathon.generic.login.user.UserResponse;
 import com.Hackathon.glow.user.dto.UserRequest;
-import com.Hackathon.glow.user.dto.UserResponse;
 import com.Hackathon.glow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-
 public class UserController {
+
 
     private final UserService userService;
 
-//유저 생성
+
+    //유저 생성
     @PostMapping
-    public ResponseEntity<Long> addUser(@RequestBody UserRequest userRequest)
+    public ResponseEntity<Long> addUser(@RequestBody UserRequest request)
     {
-        Long id=userService.createUser(userRequest);
+        Long id =userService.createUser(request);
         return ResponseEntity.ok(id);
     }
 
-    //유저 정보 조회(id로 조회)
+    //유저 조회
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable Long userId)
+    public ResponseEntity<com.Hackathon.generic.login.user.UserResponse> getUser(@PathVariable Long userId)
     {
-        UserResponse userResponse = userService.getUser(userId);
-        return ResponseEntity.ok(userResponse);
+        UserResponse userresponse = userService.getUserById(userId);
+        return ResponseEntity.ok(userresponse);
     }
+
+
 }
