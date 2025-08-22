@@ -1,12 +1,15 @@
 package com.Hackathon.glow.exhibitionspace.controller;
 
+import com.Hackathon.generic.login.auth.AuthService;
 import com.Hackathon.glow.exhibitionspace.domain.ExhibitionSpace;
 import com.Hackathon.glow.exhibitionspace.dto.ExhibitionSpaceRequestDto;
 import com.Hackathon.glow.exhibitionspace.dto.ExhibitionSpaceResponseDto;
 import com.Hackathon.glow.exhibitionspace.service.ExhibitionSpaceService;
 import com.Hackathon.glow.user.domain.User;
 import com.Hackathon.glow.user.domain.UserType;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +22,13 @@ import java.util.List;
 public class ExhibitionSpaceController {
 
     private final ExhibitionSpaceService exhibitionSpaceService;
-
+    private final AuthService authService;
     //전시 공간 등록
     @PostMapping
-    public ResponseEntity<ExhibitionSpaceResponseDto> createSpace(@RequestBody ExhibitionSpaceRequestDto requestDto)
+    public ResponseEntity<ExhibitionSpaceResponseDto> createSpace(@RequestBody ExhibitionSpaceRequestDto requestDto, HttpSession session)
     {
 //로그인 기능 없으니까 나중에 파라미터에 @AuthenticationPrincipal User user 넣기.
-        User dummyUser = new User(1L, "테스트유저", "test@example.com","1234","https://www.example.com/profile/12345", UserType.SPACEOWNER);
+        User dummyUser = authService.getLoginUser(session);
 
         return ResponseEntity.ok(exhibitionSpaceService.createSpace(requestDto, dummyUser));
     }
@@ -47,17 +50,10 @@ public class ExhibitionSpaceController {
 
     //전시 공간 삭제
     @DeleteMapping("/{spaceId}")
-    public ResponseEntity<Void> deleteSpace(@PathVariable Long spaceId)
+    public ResponseEntity<Void> deleteSpace(@PathVariable Long spaceId, HttpSession session)
     {
 //일단 dummyUser로 !!!
-        User dummyUser = new User(
-                1L,
-                "테스트유저",
-                "test@example.com",
-                "1234",
-                "https://www.example.com/profile/12345",
-                UserType.SPACEOWNER
-        );
+        User dummyUser = authService.getLoginUser(session);
         exhibitionSpaceService.deleteSpace(spaceId, dummyUser);
         return ResponseEntity.noContent().build();
     }
@@ -66,18 +62,12 @@ public class ExhibitionSpaceController {
     @PutMapping("/{spaceId}")
     public ResponseEntity<ExhibitionSpaceResponseDto> updateSpace(
             @PathVariable Long spaceId,
-            @RequestBody ExhibitionSpaceRequestDto requestDto
+            @RequestBody ExhibitionSpaceRequestDto requestDto,
+        HttpSession session
     )
     {
         //더미 유저 동일하게 사용..
-        User dummyUser = new User(
-                1L,
-                "테스트유저",
-                "test@example.com",
-                "1234",
-                "https://www.example.com/profile/12345",
-                UserType.SPACEOWNER
-        );
+        User dummyUser = authService.getLoginUser(session);
         return ResponseEntity.ok(exhibitionSpaceService.updateSpace(spaceId, requestDto, dummyUser));
     }
 

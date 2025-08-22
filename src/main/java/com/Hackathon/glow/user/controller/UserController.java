@@ -1,8 +1,6 @@
 package com.Hackathon.glow.user.controller;
 
-import com.Hackathon.generic.login.user.UserRequest;
-import com.Hackathon.generic.login.user.UserResponse;
-import com.Hackathon.glow.user.dto.UserRequest;
+import com.Hackathon.glow.user.dto.SignUpRequest;
 import com.Hackathon.glow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,19 +16,12 @@ public class UserController {
 
     //유저 생성
     @PostMapping
-    public ResponseEntity<Long> addUser(@RequestBody UserRequest request)
+    public ResponseEntity<Long> addUser(@RequestBody SignUpRequest request)
     {
         Long id =userService.createUser(request);
         return ResponseEntity.ok(id);
     }
 
-    //유저 조회
-    @GetMapping("/{userId}")
-    public ResponseEntity<com.Hackathon.generic.login.user.UserResponse> getUser(@PathVariable Long userId)
-    {
-        UserResponse userresponse = userService.getUserById(userId);
-        return ResponseEntity.ok(userresponse);
-    }
 
 
 }

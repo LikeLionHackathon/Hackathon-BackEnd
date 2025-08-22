@@ -39,7 +39,7 @@ public class ExhibitionSpaceResponseDto {
                 .description(space.getDescription())
                 .imageUrl(space.getImageUrl())
                 .ownerId(space.getOwner() != null ? space.getOwner().getUserId() : null)
-                .ownerName(space.getOwner() != null ? space.getOwner().getUsername():null) // User 엔티티에서 닉네임 or 이름 가져오기
+                .ownerName(space.getOwner() != null ? space.getOwner().getNickname():null) // User 엔티티에서 닉네임 or 이름 가져오기
                 .build();
     }
 

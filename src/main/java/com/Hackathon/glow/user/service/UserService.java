@@ -1,9 +1,8 @@
 package com.Hackathon.glow.user.service;
 
-
-import com.Hackathon.generic.login.user.UserRepository;
-import com.Hackathon.generic.login.user.UserRequest;
-import com.Hackathon.generic.login.user.UserResponse;
+import com.Hackathon.glow.user.domain.User;
+import com.Hackathon.glow.user.dto.SignUpRequest;
+import com.Hackathon.glow.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,26 +19,19 @@ public class UserService {
 
     //유저 생성
 //유저 id를 받아서 .. db에서 찾고 생성
-    public Long createUser(UserRequest userRequest) {
+    public Long createUser(SignUpRequest request) {
 
         //request ->entity 변환 (
-        User user =userRequest.toEntity();
+        User user = request.toEntity();
 
         //비밀번호 암호화 적용
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         //저장
         userRepository.save(user);
-        return user.getId();
+        return user.getUserId();
 
     }
 
-    //유저 조회
-    public UserResponse getUserById(Long userId)
-    {
-        //유저 조회
-        User user = userRepository.findById(userId).orElseThrow(()->new IllegalArgumentException("유저가 조회되지 않습니다."));
 
-        return UserResponse.from(user);
-    }
 }

@@ -17,10 +17,11 @@ public class User {
 
     private String loginId;
 
-    private String username;
-
-
     private String password;
+
+    private String nickname;
+
+    private String email;
 
     private String profileUrl;
 
