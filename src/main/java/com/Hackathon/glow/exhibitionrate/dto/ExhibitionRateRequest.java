@@ -25,9 +25,6 @@ public class ExhibitionRateRequest {
     @Min(1) @Max(5)
     private Long rate;
 
-    //한줄평
-    @Size(max = 500)
-    private String content;
 
 
     private Long userId;      // 작성자 ID
@@ -36,7 +33,6 @@ public class ExhibitionRateRequest {
     public ExhibitionRate toEntity(User user, Exhibition exhibition) {
         return ExhibitionRate.builder()
                 .rate(this.rate)
-                .content(this.content)
                 .user(user)
                 .exhibition(exhibition)
                 .build();

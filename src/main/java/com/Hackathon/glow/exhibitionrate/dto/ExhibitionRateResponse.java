@@ -11,21 +11,19 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class ExhibitionRateResponse {
-    private Long id;
-    private Long rate;
-    private String content;
+    private Long exhibitionrateId;
+
     private Long userId;      // 작성자 ID
     private Long exhibitionId;
-    private LocalDate createdAt;
 
+    private Long rate;
     public static ExhibitionRateResponse from(ExhibitionRate rate) {
         return ExhibitionRateResponse.builder()
-                .id(rate.getId())
+                .exhibitionrateId(rate.getId())
                 .rate(rate.getRate())
-                .content(rate.getContent())
                 .userId(rate.getUser() != null ? rate.getUser().getUserId() : null)
                 .exhibitionId(rate.getExhibition() != null ? rate.getExhibition().getId() : null)
-                .createdAt(rate.getCreatedAt())
+
                 .build();
     }
 
