@@ -34,6 +34,10 @@ public class ExhibitionRateService {
         Exhibition exhibition = exhibitionRepository.findById(request.getExhibitionId())
                 .orElseThrow(() -> new IllegalArgumentException("전시를 찾을 수 없습니다. id=" + request.getExhibitionId()));
 
+        exhibitionRateRepository.findByUserAndExhibition(user, exhibition)
+            .ifPresent(like -> {
+                throw new IllegalStateException("이미 전시 평가를 완료했습니다.");
+            });
 
         ExhibitionRate saved = exhibitionRateRepository.save(
                 ExhibitionRate.builder()

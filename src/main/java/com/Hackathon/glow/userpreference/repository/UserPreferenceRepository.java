@@ -15,6 +15,6 @@ public interface UserPreferenceRepository extends JpaRepository<UserPreference, 
 
     Optional<UserPreference>findByUser(User user);
 
-    //유저 한명의 각각의 질문에 대한 취향 조회 ..?
-    //List<UserPreference> findByUserPreferenceId
+    boolean existsByUserUserIdAndQuestionId(Long userId, Long questionId);
+
 }

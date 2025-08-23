@@ -2,6 +2,7 @@ package com.Hackathon.glow.exhibitionrate.repository;
 
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import com.Hackathon.glow.exhibitionrate.domain.ExhibitionRate;
+import com.Hackathon.glow.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +23,8 @@ public interface ExhibitionRateRepository extends JpaRepository<ExhibitionRate, 
 
     //전시, 유저 기준으로 조회
     Optional<ExhibitionRate> findByExhibition_IdAndUser_UserId(Long exhibitionId, Long userId);
+
+    Optional<Object> findByUserAndExhibition(User user, Exhibition exhibition);
 }
 
 

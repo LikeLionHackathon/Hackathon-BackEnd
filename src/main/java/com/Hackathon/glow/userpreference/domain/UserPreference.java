@@ -2,35 +2,27 @@ package com.Hackathon.glow.userpreference.domain;
 
 import com.Hackathon.glow.user.domain.User;
 import jakarta.persistence.*;
-import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
-@Table(name="userpreference")
-
+@Table(
+    name = "userpreference",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"userId", "questionId"})
+    }
+)
 public class UserPreference {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userPreferenceId;
 
     @ManyToOne
-    @JoinColumn(name="userId")
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
-    @Builder.Default
-    @OneToMany(mappedBy="userPreference",cascade=CascadeType.ALL,orphanRemoval = true)
-    private List<PreferenceAnswer> answers=new ArrayList<>();
+    @Column(nullable = false)
+    private Long questionId;
 
-    public void addAnswer(PreferenceAnswer answer) {
-        answers.add(answer);
-        answer.setUserPreference(this);
-    }
+    @Column(nullable = false)
+    private Long answerId;
 }
