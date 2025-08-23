@@ -3,11 +3,13 @@ package com.Hackathon.glow.exhibition.controller;
 
 import com.Hackathon.generic.util.MultipartInputStreamFileResource;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
+import com.Hackathon.glow.exhibition.dto.ExhibitionDetailResponse;
 import com.Hackathon.glow.exhibition.dto.ExhibitionRequest;
 import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
 import com.Hackathon.glow.exhibition.dto.RecommendDto;
 import com.Hackathon.glow.exhibition.dto.RecommendListDto;
 import com.Hackathon.glow.exhibition.service.ExhibitionService;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
@@ -40,10 +42,11 @@ public class ExhibitionController {
     public ResponseEntity<Long> createExhibition(
         @RequestPart("data") ExhibitionRequest request,     // JSON 자동 매핑
         @RequestPart(value = "posterImage",required = false) MultipartFile posterImage,
-        @RequestPart(value = "artworkImages",required = false) List<MultipartFile> artworkImages
+        @RequestPart(value = "artworkImages",required = false) List<MultipartFile> artworkImages,
+        HttpSession session
     ) {
 
-        return ResponseEntity.ok(exhibitionService.register(request, posterImage, artworkImages));
+        return ResponseEntity.ok(exhibitionService.register(request, posterImage, artworkImages,session));
     }
 
     @PostMapping(value = "/recommend", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -126,7 +129,7 @@ public class ExhibitionController {
 
     //전시 개별 조회 ( by id )
     @GetMapping ("/{exhibitionId}")
-    public ExhibitionResponse getExhibition(@PathVariable Long exhibitionId)
+    public ExhibitionDetailResponse getExhibition(@PathVariable Long exhibitionId)
     {
         return exhibitionService.getExhibition(exhibitionId);
     }

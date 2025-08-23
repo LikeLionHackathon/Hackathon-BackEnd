@@ -1,6 +1,7 @@
 package com.Hackathon.glow.exhibition.service;
 
 import com.Hackathon.generic.exception.AiResponseException;
+import com.Hackathon.generic.login.auth.AuthService;
 import com.Hackathon.generic.s3.exception.S3Exception;
 import com.Hackathon.generic.s3.service.S3ClientService;
 import com.Hackathon.glow.artistexhibition.entity.ArtistExhibition;
@@ -9,6 +10,7 @@ import com.Hackathon.glow.artwork.domain.Artwork;
 import com.Hackathon.glow.exhibition.domain.ExhibitionArtwork;
 import com.Hackathon.glow.exhibition.dto.AiTagRequeset;
 import com.Hackathon.glow.exhibition.dto.AiTagResponse;
+import com.Hackathon.glow.exhibition.dto.ExhibitionDetailResponse;
 import com.Hackathon.glow.exhibition.dto.ExhibitionRequest;
 import com.Hackathon.glow.tag.domain.ExhibitionTag;
 import com.Hackathon.glow.tag.domain.Tag;
@@ -20,7 +22,9 @@ import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
 import com.Hackathon.glow.exhibition.repository.ExhibitionArtworkRepository;
 import com.Hackathon.glow.exhibition.repository.ExhibitionRepository;
 import com.Hackathon.glow.user.domain.User;
+import com.Hackathon.glow.user.dto.UserResponse;
 import com.Hackathon.glow.user.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -47,20 +51,27 @@ public class ExhibitionService {
     private final RestTemplate restTemplate;
     private final UserRepository userRepository;
     private final ArtistExhibitionRepository artistExhibitionRepository;
+    private final AuthService authService;
 
     //전시 개별 조회 (by id)
     @Transactional(readOnly = true)
-    public ExhibitionResponse getExhibition(Long ExhibitionId)
+    public ExhibitionDetailResponse getExhibition(Long exhibitionid)
     {
-        Exhibition exhibition = exhibitionRepository.findById(ExhibitionId)
+        Exhibition exhibition = exhibitionRepository.findById(exhibitionid)
                 .orElseThrow(()->new IllegalArgumentException("해당 전시를 찾을 수 없습니다."));
 
         List<Artwork> artworks =exhibitionArtworkRepository.findAllByExhibition(exhibition).stream().map(ExhibitionArtwork::getArtwork).toList();
 
-        List<Tag> tags = exhibitionTagRepository.findByExhibition_Id(ExhibitionId).stream()
+        List<Tag> tags = exhibitionTagRepository.findByExhibition_Id(exhibitionid).stream()
                 .map(ExhibitionTag::getTag)
                 .toList();
-        return ExhibitionResponse.from(exhibition,artworks,tags);
+
+        List<UserResponse> artists = artistExhibitionRepository.findByExhibition_Id(exhibitionid).stream()
+            .map(ae -> {
+                return UserResponse.of(ae.getUser());
+            }).toList();
+
+        return ExhibitionDetailResponse.from(exhibition,artworks,tags,artists);
     }
 
 
@@ -93,7 +104,8 @@ public class ExhibitionService {
 
 
 
-    public Long register(ExhibitionRequest exhibitionRequest, MultipartFile posterImage, List<MultipartFile> artworkImages) {
+    public Long register(ExhibitionRequest exhibitionRequest, MultipartFile posterImage, List<MultipartFile> artworkImages,
+        HttpSession session) {
         //aws 이미지 등록
         String postImageUrl;
         List<String> artworkImageUrls;
@@ -122,12 +134,15 @@ public class ExhibitionService {
         }
 
         //함께하는 작가 등록
-        List<User> artists = exhibitionRequest.getArtists().stream()
-            .map(artistId -> {
-                return userRepository.findByUserId(artistId)
+        List<User> artists = new ArrayList<>();
+        artists.add(authService.getLoginUser(session));
+        exhibitionRequest.getArtists().stream()
+            .forEach(artistId -> {
+                User user =  userRepository.findByUserId(artistId)
                     .orElseThrow(
                         () -> new IllegalStateException("artistId와 일치하는 artist가 존재하지 않습니다"));
-            }).toList();
+                artists.add(user);
+            });
 
         for (User artist : artists) {
             artistExhibitionRepository.save(new ArtistExhibition(artist, save));
