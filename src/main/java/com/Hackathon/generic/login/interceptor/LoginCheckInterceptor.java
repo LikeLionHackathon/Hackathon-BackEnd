@@ -12,6 +12,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
         Object handler) throws Exception {
+
+        String requestURI = request.getRequestURI();
+        String method = request.getMethod();
+        // ✅ /api/v1/users 경로 중 POST 요청만 통과
+        if ("/api/v1/users".equals(requestURI) && "POST".equalsIgnoreCase(method)) {
+            return true;
+        }
         Object loginUser = request.getSession(false) == null ? null
             : request.getSession(false).getAttribute(AuthService.LOGIN_SESSION_KEY);
         if (loginUser == null) {
