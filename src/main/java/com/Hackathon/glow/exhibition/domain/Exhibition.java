@@ -1,6 +1,7 @@
 package com.Hackathon.glow.exhibition.domain;
 
 import com.Hackathon.glow.tag.domain.ExhibitionTag;
+import com.Hackathon.glow.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +27,6 @@ public class Exhibition {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private String teamName;
     private String location;
     private String description;
     private String posterImageUrl;
@@ -36,12 +36,11 @@ public class Exhibition {
     @Builder.Default
     private Boolean isOngoing = true;
 
-    public Exhibition(String title, LocalDate startDate, LocalDate endDate, String teamName,
+    public Exhibition(String title, LocalDate startDate, LocalDate endDate,
         String location, String description, String posterImageUrl, LocalDate registeredDate) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.teamName = teamName;
         this.location = location;
         this.description = description;
         this.posterImageUrl = posterImageUrl;

@@ -34,7 +34,6 @@ public class ExhibitionUserResponse {
                 .exhibitionId(exhibitionUser.getExhibition().getId())
                 .posterImageUrl(exhibitionUser.getExhibition().getPosterImageUrl())
                 .title(exhibitionUser.getExhibition().getTitle())
-                .teamName(exhibitionUser.getExhibition().getTeamName())
                 .visitedDate(exhibitionUser.getVisitedDate())
                 .build();
     }

@@ -16,7 +16,6 @@ public class AiTagRequeset {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-    private String teamName;
     private String location;
     private String description;
     private String posterImageUrl;
@@ -28,7 +27,6 @@ public class AiTagRequeset {
         this.startDate = exhibition.getStartDate();
         this.location = exhibition.getLocation();
         this.endDate = exhibition.getEndDate();
-        this.teamName = exhibition.getTeamName();
         this.description = exhibition.getDescription();
         this.posterImageUrl = posterImageUrl;
         this.artworkImages = artworkImages;

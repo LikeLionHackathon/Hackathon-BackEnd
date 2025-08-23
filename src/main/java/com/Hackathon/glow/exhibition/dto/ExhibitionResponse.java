@@ -19,7 +19,6 @@ public class ExhibitionResponse {
 
     private Long id;
     private String title;
-    private String teamName;
     private LocalDate startDate;
     private LocalDate endDate;
     private String location;
@@ -35,7 +34,6 @@ public class ExhibitionResponse {
         return ExhibitionResponse.builder()
                 .id(exhibition.getId())
                 .title(exhibition.getTitle())
-                .teamName(exhibition.getTeamName())
                 .startDate(exhibition.getStartDate())
                 .endDate(exhibition.getEndDate())
                 .location(exhibition.getLocation())

@@ -3,6 +3,8 @@ package com.Hackathon.glow.exhibition.service;
 import com.Hackathon.generic.exception.AiResponseException;
 import com.Hackathon.generic.s3.exception.S3Exception;
 import com.Hackathon.generic.s3.service.S3ClientService;
+import com.Hackathon.glow.artistexhibition.entity.ArtistExhibition;
+import com.Hackathon.glow.artistexhibition.repository.ArtistExhibitionRepository;
 import com.Hackathon.glow.artwork.domain.Artwork;
 import com.Hackathon.glow.exhibition.domain.ExhibitionArtwork;
 import com.Hackathon.glow.exhibition.dto.AiTagRequeset;
@@ -17,6 +19,8 @@ import com.Hackathon.glow.exhibition.domain.Exhibition;
 import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
 import com.Hackathon.glow.exhibition.repository.ExhibitionArtworkRepository;
 import com.Hackathon.glow.exhibition.repository.ExhibitionRepository;
+import com.Hackathon.glow.user.domain.User;
+import com.Hackathon.glow.user.repository.UserRepository;
 import java.io.IOException;
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +45,8 @@ public class ExhibitionService {
     private final ExhibitionTagRepository exhibitionTagRepository;
     private final S3ClientService s3ClientService;
     private final RestTemplate restTemplate;
+    private final UserRepository userRepository;
+    private final ArtistExhibitionRepository artistExhibitionRepository;
 
     //전시 개별 조회 (by id)
     @Transactional(readOnly = true)
@@ -108,10 +114,23 @@ public class ExhibitionService {
             artworks.add(artworkRepository.save(artwork));
         });
 
+
         //전시_작품 등록
         for (Artwork artwork : artworks) {
             ExhibitionArtwork exhibitionArtwork = new ExhibitionArtwork(save, artwork);
             exhibitionArtworkRepository.save(exhibitionArtwork);
+        }
+
+        //함께하는 작가 등록
+        List<User> artists = exhibitionRequest.getArtists().stream()
+            .map(artistId -> {
+                return userRepository.findByUserId(artistId)
+                    .orElseThrow(
+                        () -> new IllegalStateException("artistId와 일치하는 artist가 존재하지 않습니다"));
+            }).toList();
+
+        for (User artist : artists) {
+            artistExhibitionRepository.save(new ArtistExhibition(artist, save));
         }
 
         //ai 태그 받아오기
