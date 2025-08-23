@@ -5,6 +5,7 @@ import com.Hackathon.glow.userpreference.dto.PreferenceAnswerResponseDto;
 import com.Hackathon.glow.userpreference.dto.UserPreferenceRequestDto;
 import com.Hackathon.glow.userpreference.dto.UserPreferenceResponseDto;
 import com.Hackathon.glow.userpreference.service.UserPreferenceService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class UserPreferenceController {
 
     //유저 취향 생성
     @PostMapping
-    public ResponseEntity<UserPreferenceResponseDto> createPreference(@Valid @RequestBody UserPreferenceRequestDto requestDto) {
+    public ResponseEntity<UserPreferenceResponseDto> createPreference(@Valid @RequestBody UserPreferenceRequestDto requestDto, HttpSession session) {
 
         return ResponseEntity.ok(userPreferenceService.createUserPreference(requestDto));
 

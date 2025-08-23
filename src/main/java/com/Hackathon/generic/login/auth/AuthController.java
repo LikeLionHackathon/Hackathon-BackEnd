@@ -1,5 +1,7 @@
 package com.Hackathon.generic.login.auth;
 
+import com.Hackathon.generic.login.dto.LoginRequest;
+import com.Hackathon.generic.login.dto.LoginResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,12 @@ public class AuthController {
 
     private final AuthService authService;
 
+
     //로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request, HttpSession session) {
-        authService.login(request.getLoginId(), request.getPassword(), session);
-        return ResponseEntity.ok("로그인 성공");
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request, HttpSession session) {
+
+        return ResponseEntity.ok(authService.login(request.getLoginId(), request.getPassword(), session));
     }
 
     //로그아웃

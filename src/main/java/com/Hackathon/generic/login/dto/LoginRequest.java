@@ -1,4 +1,4 @@
-package com.Hackathon.generic.login.auth;
+package com.Hackathon.generic.login.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
