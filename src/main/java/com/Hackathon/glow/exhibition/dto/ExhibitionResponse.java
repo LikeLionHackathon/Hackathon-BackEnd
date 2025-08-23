@@ -38,7 +38,7 @@ public class ExhibitionResponse {
                 .endDate(exhibition.getEndDate())
                 .location(exhibition.getLocation())
                 .description(exhibition.getDescription())
-//                .posterImage(exhibition.getPosterImage())
+                .posterImage(exhibition.getPosterImageUrl())
                 .artworkUrl(artworks.stream()
                         .map(Artwork::getArtworkUrl)
                         .filter(Objects::nonNull)
