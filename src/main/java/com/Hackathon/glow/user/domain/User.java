@@ -24,7 +24,7 @@ public class User {
 
     private String email;
 
-    private String profileUrl;
+    private String profileImageUrl;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;

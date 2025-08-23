@@ -2,7 +2,10 @@ package com.Hackathon.glow.user.service;
 
 import com.Hackathon.glow.user.domain.User;
 import com.Hackathon.glow.user.dto.SignUpRequest;
+import com.Hackathon.glow.user.dto.UserResponse;
 import com.Hackathon.glow.user.repository.UserRepository;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,5 +36,11 @@ public class UserService {
 
     }
 
-
+    public UserResponse findByNickname(String nickname) {
+        Optional<User> byNickname = userRepository.findByNickname(nickname);
+        if (byNickname.isEmpty()) {
+            return null;
+        }
+        return UserResponse.of(byNickname.get());
+    }
 }
