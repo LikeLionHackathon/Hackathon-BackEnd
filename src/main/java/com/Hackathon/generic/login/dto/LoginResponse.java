@@ -7,6 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoginResponse {
 
+    Long userId;
+
     boolean isSuccess;
 
     boolean isFirst;

@@ -38,9 +38,9 @@ public class AuthService {
 
         //처음 로그인한 사용자인지 아닌지 판별
         if (userPreferenceRepository.findByUser_UserId(user.getUserId()).isEmpty()) {
-            return new LoginResponse(true, true);
+            return new LoginResponse(user.getUserId(),true, true);
         }
-        return new LoginResponse(true, false);
+        return new LoginResponse(user.getUserId(),true, false);
     }
 
     //세션에서 로그인 사용자 조회

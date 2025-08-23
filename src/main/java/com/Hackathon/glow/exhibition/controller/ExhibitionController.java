@@ -10,6 +10,7 @@ import com.Hackathon.glow.exhibition.dto.RecommendDto;
 import com.Hackathon.glow.exhibition.dto.RecommendListDto;
 import com.Hackathon.glow.exhibition.service.ExhibitionService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public class ExhibitionController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> createExhibition(
-        @RequestPart("data") ExhibitionRequest request,     // JSON 자동 매핑
+        @Valid @RequestPart("data") ExhibitionRequest request,     // JSON 자동 매핑
         @RequestPart(value = "posterImage",required = false) MultipartFile posterImage,
         @RequestPart(value = "artworkImages",required = false) List<MultipartFile> artworkImages,
         HttpSession session
