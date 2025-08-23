@@ -12,9 +12,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private static final String LOGIN_SESSION_KEY ="LOGIN_user";
+    public static final String LOGIN_SESSION_KEY ="LOGIN_user";
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     //로그인 처리
     public void login(String loginId,String password, HttpSession session) {

@@ -15,7 +15,7 @@ public class UserController {
 
 
     //유저 생성
-    @PostMapping
+    @PostMapping("/api/v1/users")
     public ResponseEntity<Long> addUser(@RequestBody SignUpRequest request)
     {
         Long id =userService.createUser(request);
