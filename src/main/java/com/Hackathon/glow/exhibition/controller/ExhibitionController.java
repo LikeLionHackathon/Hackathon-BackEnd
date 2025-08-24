@@ -3,12 +3,7 @@ package com.Hackathon.glow.exhibition.controller;
 
 import com.Hackathon.generic.util.MultipartInputStreamFileResource;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
-import com.Hackathon.glow.exhibition.dto.ExhibitionDetailResponse;
-import com.Hackathon.glow.exhibition.dto.ExhibitionRequest;
-import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
-import com.Hackathon.glow.exhibition.dto.RecommendDto;
-import com.Hackathon.glow.exhibition.dto.RecommendListDto;
-import com.Hackathon.glow.exhibition.dto.VisitedExhibitionDto;
+import com.Hackathon.glow.exhibition.dto.*;
 import com.Hackathon.glow.exhibition.service.ExhibitionService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -142,5 +137,12 @@ public class ExhibitionController {
         return exhibitionService.getVisitedExhibition(session);
     }
 
-    
+
+    //전시 검색 ( 부분 검색 구현 )
+    @GetMapping("/search")
+    public List<ExhibitionSearchResponse> searchExhibitions(@RequestParam ExhibitionSearchRequest request) {
+
+        return exhibitionService.getSearchedExhibitions(request);
+
+    }
 }
