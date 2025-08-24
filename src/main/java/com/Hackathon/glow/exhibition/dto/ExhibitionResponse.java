@@ -26,9 +26,15 @@ public class ExhibitionResponse {
     private String posterImage;
     private List<String> artworkUrl;
 
+
+
+    private boolean wantToVisit;
+    private boolean visited;
+
     @Builder.Default
     private boolean isOngoing=true;
     private List<String> tags;
+
     //전시 랑, 작품 리스트 받아오게 ..
     public static ExhibitionResponse from(Exhibition exhibition,List<Artwork> artworks,List<Tag> tags) {
         return ExhibitionResponse.builder()

@@ -32,7 +32,9 @@ public class UserController {
         return ResponseEntity.ok(userService.findByNickname(nickname));
     }
 
+
     //유저 카드 정보 불러오기 ( 로그인한 유저 )
+
     @GetMapping("/usercard")
     public ResponseEntity<UserCardResponse> readUserCardByUserId(HttpSession session) {
 
