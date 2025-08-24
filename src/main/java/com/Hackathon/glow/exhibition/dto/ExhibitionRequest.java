@@ -18,7 +18,6 @@ import java.time.LocalDate;
 public class ExhibitionRequest {
     private String title;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
-    @Future(message = "전시 시작일은 미래 날짜여야 합니다.")
     private LocalDate startDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
