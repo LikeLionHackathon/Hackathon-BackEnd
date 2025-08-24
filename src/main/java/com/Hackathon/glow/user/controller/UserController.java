@@ -3,6 +3,7 @@ package com.Hackathon.glow.user.controller;
 import com.Hackathon.glow.user.dto.SignUpRequest;
 import com.Hackathon.glow.user.dto.UserResponse;
 import com.Hackathon.glow.user.service.UserService;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/api/v1/users/{nickname}")
-    public ResponseEntity<UserResponse> readUserByNickname(String nickname) {
+    public ResponseEntity<UserResponse> readUserByNickname(@PathVariable String nickname) {
         return ResponseEntity.ok(userService.findByNickname(nickname));
     }
 }

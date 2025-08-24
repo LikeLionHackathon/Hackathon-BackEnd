@@ -141,4 +141,6 @@ public class ExhibitionController {
     public List<VisitedExhibitionDto> getVisitedExhibition(HttpSession session) {
         return exhibitionService.getVisitedExhibition(session);
     }
+
+    
 }

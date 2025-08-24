@@ -2,6 +2,7 @@ package com.Hackathon.glow.userpreference.domain;
 
 import com.Hackathon.glow.user.domain.User;
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(
@@ -10,6 +11,7 @@ import jakarta.persistence.*;
         @UniqueConstraint(columnNames = {"userId", "questionId"})
     }
 )
+@NoArgsConstructor
 public class UserPreference {
 
     @Id
@@ -21,8 +23,14 @@ public class UserPreference {
     private User user;
 
     @Column(nullable = false)
-    private Long questionId;
+    private int questionId;
 
     @Column(nullable = false)
-    private Long answerId;
+    private int answerId;
+
+    public UserPreference(User user, int questionId, int answerId) {
+        this.user = user;
+        this.questionId = questionId;
+        this.answerId = answerId;
+    }
 }
