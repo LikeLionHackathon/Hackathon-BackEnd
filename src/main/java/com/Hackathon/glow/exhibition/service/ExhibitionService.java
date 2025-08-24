@@ -8,11 +8,7 @@ import com.Hackathon.glow.artistexhibition.entity.ArtistExhibition;
 import com.Hackathon.glow.artistexhibition.repository.ArtistExhibitionRepository;
 import com.Hackathon.glow.artwork.domain.Artwork;
 import com.Hackathon.glow.exhibition.domain.ExhibitionArtwork;
-import com.Hackathon.glow.exhibition.dto.AiTagRequeset;
-import com.Hackathon.glow.exhibition.dto.AiTagResponse;
-import com.Hackathon.glow.exhibition.dto.ExhibitionDetailResponse;
-import com.Hackathon.glow.exhibition.dto.ExhibitionRequest;
-import com.Hackathon.glow.exhibition.dto.VisitedExhibitionDto;
+import com.Hackathon.glow.exhibition.dto.*;
 import com.Hackathon.glow.exhibitionrate.domain.ExhibitionRate;
 import com.Hackathon.glow.exhibitionrate.repository.ExhibitionRateRepository;
 import com.Hackathon.glow.tag.domain.ExhibitionTag;
@@ -21,7 +17,6 @@ import com.Hackathon.glow.tag.repository.ExhibitionTagRepository;
 import com.Hackathon.glow.tag.repository.TagRepository;
 import com.Hackathon.glow.artwork.repository.ArtworkRepository;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
-import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
 import com.Hackathon.glow.exhibition.repository.ExhibitionArtworkRepository;
 import com.Hackathon.glow.exhibition.repository.ExhibitionRepository;
 import com.Hackathon.glow.user.domain.User;
@@ -196,5 +191,16 @@ public class ExhibitionService {
                     .toList();
                 return new VisitedExhibitionDto(e, artists);
             }).toList();
+    }
+
+
+    //전시 검색
+    public List<ExhibitionSearchResponse> getSearchedExhibitions(ExhibitionSearchRequest request)
+    {
+        List<Exhibition> exhibitions = exhibitionRepository.findByTitleContaining(request.getTitle());
+
+
+        return exhibitions.stream().map(ExhibitionSearchResponse::from)
+                .collect(Collectors.toList());
     }
 }

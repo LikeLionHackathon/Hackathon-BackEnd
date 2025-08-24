@@ -60,9 +60,12 @@ public class ExhibitionLikeService {
     public List<ExhibitionLikeResponse> getExhibitionLikesByUser(HttpSession session) {
         User user = authService.getLoginUser(session);
 
+
+
         return exhibitionLikeRepository.findByUser(user).stream()
                 .map(ExhibitionLikeResponse::from)
                 .collect(Collectors.toList());
+
     }
 
 
