@@ -11,4 +11,6 @@ public interface ArtistExhibitionRepository extends JpaRepository<ArtistExhibiti
     List<ArtistExhibition> findByExhibition_Id(Long exhibitionId);
     List<ArtistExhibition> findByUser(User user);
     List<ArtistExhibition> findByUser_UserId(Long userId);
+    //userId로 등록된 전시 개수
+    Long countByUser_UserId(Long userId);
 }

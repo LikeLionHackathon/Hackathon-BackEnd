@@ -21,6 +21,9 @@ public interface ArtistLikeRepository extends JpaRepository<ArtistLike, Long> {
     // 특정 아티스트를 좋아요한 유저 목록 (필요 시)
     List<ArtistLike> findByToUser(User toUser);
 
+    //내가 받은 좋아요 개수 조회
+    Long countByToUser_UserIdAndLikedTrue(Long userId);
+
     // 특정 유저가 특정 아티스트 좋아요 취소
     void deleteByFromUserAndToUser(User fromUser, User toUser);
 }
