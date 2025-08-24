@@ -195,9 +195,9 @@ public class ExhibitionService {
 
 
     //전시 검색
-    public List<ExhibitionSearchResponse> getSearchedExhibitions(ExhibitionSearchRequest request)
+    public List<ExhibitionSearchResponse> getSearchedExhibitions(String title)
     {
-        List<Exhibition> exhibitions = exhibitionRepository.findByTitleContaining(request.getTitle());
+        List<Exhibition> exhibitions = exhibitionRepository.findByTitleContaining(title);
 
 
         return exhibitions.stream().map(ExhibitionSearchResponse::from)
