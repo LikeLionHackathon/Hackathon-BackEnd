@@ -4,6 +4,7 @@ import com.Hackathon.generic.login.auth.AuthService;
 import com.Hackathon.glow.artistexhibition.repository.ArtistExhibitionRepository;
 import com.Hackathon.glow.artistlike.repository.ArtistLikeRepository;
 import com.Hackathon.glow.user.domain.User;
+import com.Hackathon.glow.user.domain.UserType;
 import com.Hackathon.glow.user.dto.SignUpRequest;
 import com.Hackathon.glow.user.dto.UserCardResponse;
 import com.Hackathon.glow.user.dto.UserResponse;
@@ -71,5 +72,12 @@ public class UserService {
 
         return UserCardResponse.from(me,exhibitionCount,likeCount);
 
+    }
+
+    @Transactional
+    public UserResponse start(HttpSession session) {
+        User loginUser = authService.getLoginUser(session);
+        loginUser.setUserType(UserType.GLOW);
+        return UserResponse.of(loginUser);
     }
 }

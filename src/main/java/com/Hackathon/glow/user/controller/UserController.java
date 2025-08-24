@@ -49,4 +49,8 @@ public class UserController {
 
     }
 
+    @PostMapping("/start")
+    public ResponseEntity<UserResponse> fuxxkxing(HttpSession session) {
+        return ResponseEntity.ok(userService.start(session));
+    }
 }
