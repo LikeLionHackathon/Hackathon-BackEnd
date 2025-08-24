@@ -205,9 +205,9 @@ public class ExhibitionService {
                 .collect(Collectors.toList());
     }
 
-    //진행중인 전시 조회
-    public ExhibitionResponse getExhibitionByRegisteredDate(LocalDate registeredDate)
-    {
-
-    }
+//    //진행중인 전시 조회
+//    public ExhibitionResponse getExhibitionByRegisteredDate(LocalDate registeredDate)
+//    {
+//
+//    }
 }

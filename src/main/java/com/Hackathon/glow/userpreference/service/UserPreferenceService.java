@@ -98,7 +98,20 @@ public class UserPreferenceService {
 
         List<String> themeTagNames = new ArrayList<>();
         for (int i : themeAnswerIds) {
-            themeTagNames.add(Preference.answers[3][i]);
+            if (i == 1) {
+                themeTagNames.add("차분한");
+                themeTagNames.add("잔잔한");
+            } else if (i == 2) {
+                themeTagNames.add("웅장한");
+                themeTagNames.add("강렬한");
+            } else if (i == 3) {
+                themeTagNames.add("감성자극");
+                themeTagNames.add("힐링");
+                themeTagNames.add("몽환적");
+            } else if (i == 4) {
+                themeTagNames.add("신비로운");
+                themeTagNames.add("감각적인");
+            }
         }
 
         String randomTag = "";
@@ -130,7 +143,29 @@ public class UserPreferenceService {
 
     public List<String> getUsersTag(HttpSession session) {
         User loginUser = authService.getLoginUser(session);
-        return userPreferenceRepository.findByUser(loginUser)
-            .stream().map(uf -> uf.toString()).toList();
+        List<String> response = new ArrayList<>();
+        List<UserPreference> userPreferences = userPreferenceRepository.findByUser(loginUser);
+        for (UserPreference uf : userPreferences) {
+            if (uf.getQuestionId() != 3) {
+                response.add(uf.toString());
+            } else {
+                int i = uf.getAnswerId();
+                if (i == 1) {
+                    response.add("차분한");
+                    response.add("잔잔한");
+                } else if (i == 2) {
+                    response.add("웅장한");
+                    response.add("강렬한");
+                } else if (i == 3) {
+                    response.add("감성자극");
+                    response.add("힐링");
+                    response.add("몽환적");
+                } else if (i == 4) {
+                    response.add("신비로운");
+                    response.add("감각적인");
+                }
+            }
+        }
+        return response;
     }
 }

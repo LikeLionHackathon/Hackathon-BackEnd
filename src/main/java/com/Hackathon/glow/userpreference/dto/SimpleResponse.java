@@ -3,7 +3,11 @@ package com.Hackathon.glow.userpreference.dto;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Data;
+import lombok.Getter;
 
+@Data
+@Getter
 public class SimpleResponse {
 
     private Long exhibition_id;
