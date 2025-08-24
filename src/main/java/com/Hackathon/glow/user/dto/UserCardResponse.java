@@ -19,6 +19,7 @@ public class UserCardResponse {
     private String username;
     private UserType userType;
     private String email;
+    private String profileImageUrl;
     private Long exhibitionCount;
     private Long likeCount;
 
@@ -28,6 +29,7 @@ public class UserCardResponse {
                 .username(user.getNickname())
                 .userType(user.getUserType())
                 .email(user.getEmail())
+                .profileImageUrl(user.getProfileImageUrl())
                 //이거는 내 artistId로 등록된 전시를 받는거거든 ?
                 //artistId에
                 .exhibitionCount(exhibitionCount)

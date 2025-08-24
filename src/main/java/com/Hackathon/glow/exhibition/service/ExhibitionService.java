@@ -24,6 +24,7 @@ import com.Hackathon.glow.user.dto.UserResponse;
 import com.Hackathon.glow.user.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -202,5 +203,11 @@ public class ExhibitionService {
 
         return exhibitions.stream().map(ExhibitionSearchResponse::from)
                 .collect(Collectors.toList());
+    }
+
+    //진행중인 전시 조회
+    public ExhibitionResponse getExhibitionByRegisteredDate(LocalDate registeredDate)
+    {
+
     }
 }
