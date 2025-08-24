@@ -11,6 +11,5 @@ import lombok.*;
 public class ExhibitionSearchRequest {
 
     private String title;
-    private String artist;
 
 }

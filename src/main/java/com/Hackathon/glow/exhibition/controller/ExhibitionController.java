@@ -140,9 +140,9 @@ public class ExhibitionController {
 
     //전시 검색 ( 부분 검색 구현 )
     @GetMapping("/search")
-    public List<ExhibitionSearchResponse> searchExhibitions(@RequestParam ExhibitionSearchRequest request) {
+    public List<ExhibitionSearchResponse> searchExhibitions(@RequestParam String title) {
 
-        return exhibitionService.getSearchedExhibitions(request);
+        return exhibitionService.getSearchedExhibitions(title);
 
     }
 }
