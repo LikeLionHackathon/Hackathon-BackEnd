@@ -9,6 +9,7 @@ import com.Hackathon.glow.tag.repository.ExhibitionTagRepository;
 import com.Hackathon.glow.tag.repository.TagRepository;
 import com.Hackathon.glow.user.domain.User;
 import com.Hackathon.glow.user.domain.UserType;
+import com.Hackathon.glow.user.repository.UserRepository;
 import com.Hackathon.glow.userpreference.domain.UserPreference;
 import com.Hackathon.glow.userpreference.dto.Preference;
 import com.Hackathon.glow.userpreference.dto.PrefrenceAnswerRequest;
@@ -32,11 +33,12 @@ public class UserPreferenceService {
 
     private final UserPreferenceRepository userPreferenceRepository;
     private final AuthService authService;
-
+    private final UserRepository userRepository;
     public void createPreference(UserPreferenceRequest request, HttpSession session) {
         User loginUser = authService.getLoginUser(session);
         if (request.getUserType() == 1) {
             loginUser.setUserType(UserType.GLOW);
+            userRepository.save(loginUser);
         }
         List<PrefrenceAnswerRequest> preferenceAnswers = request.getPreferenceAnswers();
         for (PrefrenceAnswerRequest answerRequest : preferenceAnswers) {
