@@ -21,7 +21,6 @@ public class ExhibitionRequest {
     private LocalDate startDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
-    @Future(message = "전시 종료일은 미래 날짜여야 합니다.")
     private LocalDate endDate;
 
     @AssertTrue(message = "종료일은 시작일 이후여야 합니다.")

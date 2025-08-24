@@ -1,6 +1,7 @@
 package com.Hackathon.glow.userpreference.domain;
 
 import com.Hackathon.glow.user.domain.User;
+import com.Hackathon.glow.userpreference.dto.Preference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +29,9 @@ public class UserPreference {
         this.user = user;
         this.questionId = questionId;
         this.answerId = answerId;
+    }
+
+    public String toString() {
+        return Preference.answers[questionId][answerId];
     }
 }

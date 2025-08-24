@@ -2,9 +2,6 @@ package com.Hackathon.glow.userpreference.service;
 
 import com.Hackathon.generic.login.auth.AuthService;
 import com.Hackathon.glow.exhibition.domain.Exhibition;
-import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
-import com.Hackathon.glow.tag.domain.ExhibitionTag;
-import com.Hackathon.glow.tag.domain.Tag;
 import com.Hackathon.glow.tag.repository.ExhibitionTagRepository;
 import com.Hackathon.glow.tag.repository.TagRepository;
 import com.Hackathon.glow.user.domain.User;
@@ -131,4 +128,9 @@ public class UserPreferenceService {
     }
 
 
+    public List<String> getUsersTag(HttpSession session) {
+        User loginUser = authService.getLoginUser(session);
+        return userPreferenceRepository.findByUser(loginUser)
+            .stream().map(uf -> uf.toString()).toList();
+    }
 }

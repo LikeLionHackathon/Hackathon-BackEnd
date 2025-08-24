@@ -17,9 +17,9 @@ public class UserPreferenceController {
 
     private final UserPreferenceService userPreferenceService;
 
-
     @PostMapping("/preferences")
-    public String createPreference(@RequestBody UserPreferenceRequest preferenceAnswers, HttpSession session) {
+    public String createPreference(@RequestBody UserPreferenceRequest preferenceAnswers,
+        HttpSession session) {
         userPreferenceService.createPreference(preferenceAnswers, session);
         System.out.println(preferenceAnswers.getPreferenceAnswers());
         return "취향 생성 성공~";
@@ -33,5 +33,10 @@ public class UserPreferenceController {
     @GetMapping("exhibitions/tag/mood/recommend")
     public ResponseEntity<ThemeTagExhibitionDto> getByUserMoodTag(HttpSession session) {
         return ResponseEntity.ok(userPreferenceService.getByUserMoodTag(session));
+    }
+
+    @GetMapping("/preferences")
+    public List<String> getUsersTag(HttpSession session) {
+        return userPreferenceService.getUsersTag(session);
     }
 }

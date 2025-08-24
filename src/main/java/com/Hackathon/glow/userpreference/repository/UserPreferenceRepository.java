@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserPreferenceRepository extends JpaRepository<UserPreference, Long> {
 
     //유저의 취향 조회
-    Optional<UserPreference>findByUser(User user);
+    List<UserPreference> findByUser(User user);
 
     boolean existsByUserUserIdAndQuestionId(Long userId, Long questionId);
 
