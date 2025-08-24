@@ -2,6 +2,7 @@ package com.Hackathon.glow.userpreference.domain;
 
 import com.Hackathon.glow.user.domain.User;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
     }
 )
 @NoArgsConstructor
+@Getter
 public class UserPreference {
 
     @Id

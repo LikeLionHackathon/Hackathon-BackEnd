@@ -49,4 +49,12 @@ public class ExhibitionResponse {
                 .build();
     }
 
+    public ExhibitionResponse(Exhibition exhibition) {
+        this.id = exhibition.getId();
+        this.title = exhibition.getTitle();
+        this.startDate = exhibition.getStartDate();
+        this.endDate = exhibition.getEndDate();
+        this.location = exhibition.getLocation();
+        this.posterImage = exhibition.getPosterImageUrl();
+    }
 }
