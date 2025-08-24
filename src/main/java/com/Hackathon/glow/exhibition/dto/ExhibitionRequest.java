@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @Builder
-
 public class ExhibitionRequest {
     private String title;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
@@ -35,6 +34,8 @@ public class ExhibitionRequest {
     private List<Long> artists;
     private String location;
     private String description;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate registeredDate;
 
     public  Exhibition toEntity(String postImageUrl) {

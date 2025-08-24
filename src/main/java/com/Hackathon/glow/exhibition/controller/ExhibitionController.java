@@ -8,6 +8,7 @@ import com.Hackathon.glow.exhibition.dto.ExhibitionRequest;
 import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
 import com.Hackathon.glow.exhibition.dto.RecommendDto;
 import com.Hackathon.glow.exhibition.dto.RecommendListDto;
+import com.Hackathon.glow.exhibition.dto.VisitedExhibitionDto;
 import com.Hackathon.glow.exhibition.service.ExhibitionService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -42,12 +43,13 @@ public class ExhibitionController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> createExhibition(
         @Valid @RequestPart("data") ExhibitionRequest request,     // JSON 자동 매핑
-        @RequestPart(value = "posterImage",required = false) MultipartFile posterImage,
-        @RequestPart(value = "artworkImages",required = false) List<MultipartFile> artworkImages,
+        @RequestPart(value = "posterImage", required = false) MultipartFile posterImage,
+        @RequestPart(value = "artworkImages", required = false) List<MultipartFile> artworkImages,
         HttpSession session
     ) {
 
-        return ResponseEntity.ok(exhibitionService.register(request, posterImage, artworkImages,session));
+        return ResponseEntity.ok(
+            exhibitionService.register(request, posterImage, artworkImages, session));
     }
 
     @PostMapping(value = "/recommend", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -121,17 +123,22 @@ public class ExhibitionController {
     //전시 전체 조회
     ///api/v1/exhibitions?sort=registeredDate&direction=DESC
     @GetMapping
-    public List<ExhibitionResponse> getExhibitions( @RequestParam(value = "sort", required = false) String sort,
-                                                    @RequestParam(value = "direction", required = false) String direction)
-    {
-        return exhibitionService.getExhibitions(sort,direction);
+    public List<ExhibitionResponse> getExhibitions(
+        @RequestParam(value = "sort", required = false) String sort,
+        @RequestParam(value = "direction", required = false) String direction) {
+        return exhibitionService.getExhibitions(sort, direction);
     }
 
 
     //전시 개별 조회 ( by id )
-    @GetMapping ("/{exhibitionId}")
-    public ExhibitionDetailResponse getExhibition(@PathVariable Long exhibitionId)
-    {
+    @GetMapping("/{exhibitionId}")
+    public ExhibitionDetailResponse getExhibition(@PathVariable Long exhibitionId) {
         return exhibitionService.getExhibition(exhibitionId);
+    }
+
+    //내가 방문한 전시
+    @GetMapping("/visited")
+    public List<VisitedExhibitionDto> getVisitedExhibition(HttpSession session) {
+        return exhibitionService.getVisitedExhibition(session);
     }
 }

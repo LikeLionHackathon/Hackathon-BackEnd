@@ -12,6 +12,9 @@ import com.Hackathon.glow.exhibition.dto.AiTagRequeset;
 import com.Hackathon.glow.exhibition.dto.AiTagResponse;
 import com.Hackathon.glow.exhibition.dto.ExhibitionDetailResponse;
 import com.Hackathon.glow.exhibition.dto.ExhibitionRequest;
+import com.Hackathon.glow.exhibition.dto.VisitedExhibitionDto;
+import com.Hackathon.glow.exhibitionrate.domain.ExhibitionRate;
+import com.Hackathon.glow.exhibitionrate.repository.ExhibitionRateRepository;
 import com.Hackathon.glow.tag.domain.ExhibitionTag;
 import com.Hackathon.glow.tag.domain.Tag;
 import com.Hackathon.glow.tag.repository.ExhibitionTagRepository;
@@ -42,6 +45,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @RequiredArgsConstructor
 public class ExhibitionService {
+
     private final ExhibitionRepository exhibitionRepository;
     private final ExhibitionArtworkRepository exhibitionArtworkRepository;
     private final ArtworkRepository artworkRepository;
@@ -52,59 +56,61 @@ public class ExhibitionService {
     private final UserRepository userRepository;
     private final ArtistExhibitionRepository artistExhibitionRepository;
     private final AuthService authService;
+    private final ExhibitionRateRepository exhibitionRateRepository;
 
     //전시 개별 조회 (by id)
     @Transactional(readOnly = true)
-    public ExhibitionDetailResponse getExhibition(Long exhibitionid)
-    {
+    public ExhibitionDetailResponse getExhibition(Long exhibitionid) {
         Exhibition exhibition = exhibitionRepository.findById(exhibitionid)
-                .orElseThrow(()->new IllegalArgumentException("해당 전시를 찾을 수 없습니다."));
+            .orElseThrow(() -> new IllegalArgumentException("해당 전시를 찾을 수 없습니다."));
 
-        List<Artwork> artworks =exhibitionArtworkRepository.findAllByExhibition(exhibition).stream().map(ExhibitionArtwork::getArtwork).toList();
+        List<Artwork> artworks = exhibitionArtworkRepository.findAllByExhibition(exhibition)
+            .stream().map(ExhibitionArtwork::getArtwork).toList();
 
         List<Tag> tags = exhibitionTagRepository.findByExhibition_Id(exhibitionid).stream()
-                .map(ExhibitionTag::getTag)
-                .toList();
+            .map(ExhibitionTag::getTag)
+            .toList();
 
-        List<UserResponse> artists = artistExhibitionRepository.findByExhibition_Id(exhibitionid).stream()
+        List<UserResponse> artists = artistExhibitionRepository.findByExhibition_Id(exhibitionid)
+            .stream()
             .map(ae -> {
                 return UserResponse.of(ae.getUser());
             }).toList();
 
-        return ExhibitionDetailResponse.from(exhibition,artworks,tags,artists);
+        return ExhibitionDetailResponse.from(exhibition, artworks, tags, artists);
     }
-
 
     //전시 등록정보 전체 조회
 
 
     //전시 등록정보 전체 조회 (등록된 날짜 순으로 )
-    public List<ExhibitionResponse> getExhibitions(String sortKey,String direction)
-    {
-        String sortProperty=(sortKey==null||sortKey.isBlank())? "registeredDate" : sortKey;
-        Sort.Direction dir = ("ASC".equalsIgnoreCase(direction)) ? Sort.Direction.ASC : Sort.Direction.DESC;
+    public List<ExhibitionResponse> getExhibitions(String sortKey, String direction) {
+        String sortProperty = (sortKey == null || sortKey.isBlank()) ? "registeredDate" : sortKey;
+        Sort.Direction dir =
+            ("ASC".equalsIgnoreCase(direction)) ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-        List<Exhibition> exhibitions = exhibitionRepository.findAll(Sort.by(dir,sortProperty));
+        List<Exhibition> exhibitions = exhibitionRepository.findAll(Sort.by(dir, sortProperty));
         return exhibitions.stream()
-                .map(ex -> {
-                    // 작품 뽑기: ExhibitionArtwork -> Artwork
-                    List<Artwork> artworks = exhibitionArtworkRepository.findAllByExhibition(ex).stream()
-                            .map(ExhibitionArtwork::getArtwork)
-                            .toList();
+            .map(ex -> {
+                // 작품 뽑기: ExhibitionArtwork -> Artwork
+                List<Artwork> artworks = exhibitionArtworkRepository.findAllByExhibition(ex)
+                    .stream()
+                    .map(ExhibitionArtwork::getArtwork)
+                    .toList();
 
-                    // 태그 뽑기: ExhibitionTag -> Tag
-                    List<Tag> tags = exhibitionTagRepository.findByExhibition_Id(ex.getId()).stream()
-                            .map(ExhibitionTag::getTag)
-                            .toList();
+                // 태그 뽑기: ExhibitionTag -> Tag
+                List<Tag> tags = exhibitionTagRepository.findByExhibition_Id(ex.getId()).stream()
+                    .map(ExhibitionTag::getTag)
+                    .toList();
 
-                    return ExhibitionResponse.from(ex, artworks, tags);
-                })
-                .toList();
+                return ExhibitionResponse.from(ex, artworks, tags);
+            })
+            .toList();
     }
 
 
-
-    public Long register(ExhibitionRequest exhibitionRequest, MultipartFile posterImage, List<MultipartFile> artworkImages,
+    public Long register(ExhibitionRequest exhibitionRequest, MultipartFile posterImage,
+        List<MultipartFile> artworkImages,
         HttpSession session) {
         //aws 이미지 등록
         String postImageUrl;
@@ -121,11 +127,10 @@ public class ExhibitionService {
         Exhibition save = exhibitionRepository.save(exhibition);
         //작품 등록
         List<Artwork> artworks = new ArrayList<>();
-        artworkImageUrls.stream().forEach(url ->{
+        artworkImageUrls.stream().forEach(url -> {
             Artwork artwork = new Artwork(url);
             artworks.add(artworkRepository.save(artwork));
         });
-
 
         //전시_작품 등록
         for (Artwork artwork : artworks) {
@@ -138,7 +143,7 @@ public class ExhibitionService {
         artists.add(authService.getLoginUser(session));
         exhibitionRequest.getArtists().stream()
             .forEach(artistId -> {
-                User user =  userRepository.findByUserId(artistId)
+                User user = userRepository.findByUserId(artistId)
                     .orElseThrow(
                         () -> new IllegalStateException("artistId와 일치하는 artist가 존재하지 않습니다"));
                 artists.add(user);
@@ -149,7 +154,7 @@ public class ExhibitionService {
         }
 
         //ai 태그 받아오기
-        List<Tag> tags= getTag(new AiTagRequeset(save, postImageUrl, artworkImageUrls));
+        List<Tag> tags = getTag(new AiTagRequeset(save, postImageUrl, artworkImageUrls));
         //전시_태그 저장
         for (Tag tag : tags) {
             if (!tagRepository.existsByTagName(tag.getTagName())) {
@@ -166,7 +171,7 @@ public class ExhibitionService {
 
     private List<Tag> getTag(AiTagRequeset request) {
         ResponseEntity<AiTagResponse> response = restTemplate.postForEntity(
-            aiServerUrl+"/tags",   // yml에서 불러온 값
+            aiServerUrl + "/tags",   // yml에서 불러온 값
             request,
             AiTagResponse.class
         );
@@ -176,5 +181,20 @@ public class ExhibitionService {
         } else {
             throw new AiResponseException("AI 서버 태그 응답 실패: " + response.getStatusCode());
         }
+    }
+
+    public List<VisitedExhibitionDto> getVisitedExhibition(HttpSession session) {
+        User user = authService.getLoginUser(session);
+        return exhibitionRateRepository.findByUser_UserId(
+                user.getUserId())
+            .stream()
+            .map(er -> {
+                Exhibition e = er.getExhibition();
+                List<UserResponse> artists = artistExhibitionRepository.findByExhibition_Id(
+                        e.getId())
+                    .stream().map(artistExhibition -> UserResponse.of(artistExhibition.getUser()))
+                    .toList();
+                return new VisitedExhibitionDto(e, artists);
+            }).toList();
     }
 }

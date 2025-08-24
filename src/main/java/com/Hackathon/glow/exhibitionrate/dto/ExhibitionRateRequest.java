@@ -23,7 +23,7 @@ public class ExhibitionRateRequest {
 
     @NotNull
     @Min(1) @Max(5)
-    private Long rate;
+    private int rate;
 
 
 

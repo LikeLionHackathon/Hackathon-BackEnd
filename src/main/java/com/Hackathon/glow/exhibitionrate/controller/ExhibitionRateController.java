@@ -33,5 +33,4 @@ public class ExhibitionRateController {
         return ResponseEntity.ok(response);
     }
 
-
 }
