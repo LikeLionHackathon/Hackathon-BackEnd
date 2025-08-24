@@ -15,6 +15,8 @@ public interface ExhibitionLikeRepository extends JpaRepository<ExhibitionLike, 
     // 특정 전시 좋아요 리스트 조회
     List<ExhibitionLike> findByExhibition(Exhibition exhibition);
 
+    boolean existsByUserAndExhibition(User user, Exhibition exhibition);
+
     // 특정 유저의 좋아요 목록 조회
     List<ExhibitionLike> findByUser(User user);
 
