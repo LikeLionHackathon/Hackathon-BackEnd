@@ -1,7 +1,9 @@
 package com.Hackathon.glow.exhibitionuser.service;
 
 import com.Hackathon.glow.exhibition.domain.Exhibition;
+import com.Hackathon.glow.exhibition.dto.ExhibitionResponse;
 import com.Hackathon.glow.exhibition.repository.ExhibitionRepository;
+import com.Hackathon.glow.exhibitionrate.repository.ExhibitionRateRepository;
 import com.Hackathon.glow.exhibitionuser.domain.ExhibitionUser;
 import com.Hackathon.glow.exhibitionuser.dto.ExhibitionUserRequest;
 import com.Hackathon.glow.exhibitionuser.dto.ExhibitionUserResponse;
@@ -22,6 +24,7 @@ public class ExhibitionUserService {
     private final ExhibitionUserRepository exhibitionUserRepository;
     private final ExhibitionRepository exhibitionRepository; //전시정보
     private final UserRepository userRepository;//유저정보
+    private final ExhibitionRateRepository exhibitionRateRepository;
 
     //방문한 전시 표시
     public ExhibitionUserResponse createVisitedExhibitionUser(ExhibitionUserRequest request) {
@@ -31,6 +34,7 @@ public class ExhibitionUserService {
         //전시 조회
         Exhibition exhibition=exhibitionRepository.findById(request.getExhibitionid()).orElseThrow(()->new IllegalArgumentException("전시를 찾을 수 없습니다."));
 
+
         //방문 기록 생성
         ExhibitionUser exhibitionuser = ExhibitionUser.builder()
                 .user(user)
@@ -39,8 +43,17 @@ public class ExhibitionUserService {
                 .visitedDate(LocalDate.now())
                 .build();
 
-        //저장
+        //유저 저장
         ExhibitionUser saved=exhibitionUserRepository.save(exhibitionuser);
+
+        //유저 별점 저장
+
+
+        //작품 작가 저장
+
+
+
+
 
         return ExhibitionUserResponse.from(saved);
 
