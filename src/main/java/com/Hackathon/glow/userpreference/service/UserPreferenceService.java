@@ -8,6 +8,7 @@ import com.Hackathon.glow.tag.domain.Tag;
 import com.Hackathon.glow.tag.repository.ExhibitionTagRepository;
 import com.Hackathon.glow.tag.repository.TagRepository;
 import com.Hackathon.glow.user.domain.User;
+import com.Hackathon.glow.user.domain.UserType;
 import com.Hackathon.glow.userpreference.domain.UserPreference;
 import com.Hackathon.glow.userpreference.dto.Preference;
 import com.Hackathon.glow.userpreference.dto.PrefrenceAnswerRequest;
@@ -29,17 +30,21 @@ public class UserPreferenceService {
     private final TagRepository tagRepository;
     private final ExhibitionTagRepository exhibitionTagRepository;
 
-    private UserPreferenceRepository userPreferenceRepository;
-    private AuthService authService;
+    private final UserPreferenceRepository userPreferenceRepository;
+    private final AuthService authService;
 
     public void createPreference(UserPreferenceRequest request, HttpSession session) {
         User loginUser = authService.getLoginUser(session);
+        if (request.getUserType() == 1) {
+            loginUser.setUserType(UserType.GLOW);
+        }
         List<PrefrenceAnswerRequest> preferenceAnswers = request.getPreferenceAnswers();
         for (PrefrenceAnswerRequest answerRequest : preferenceAnswers) {
-            answerRequest.getAnswerId().forEach(a_id -> {
-                userPreferenceRepository.save(
-                    new UserPreference(loginUser, answerRequest.getQuestionId(), a_id));
-            });
+            int questionId = answerRequest.getQuestionId();
+            List<Integer> answerIds = answerRequest.getAnswerId();
+            for (int a_id : answerIds) {
+                userPreferenceRepository.save(new UserPreference(loginUser, questionId, a_id));
+            }
         }
     }
 

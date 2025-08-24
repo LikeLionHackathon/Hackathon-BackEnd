@@ -6,12 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(
-    name = "userpreference",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"userId", "questionId"})
-    }
-)
 @NoArgsConstructor
 @Getter
 public class UserPreference {

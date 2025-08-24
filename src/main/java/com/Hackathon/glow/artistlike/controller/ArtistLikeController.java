@@ -28,7 +28,7 @@ public class ArtistLikeController {
     //아티스트 좋아요 목록 조회 (유저별 )
     @GetMapping("/users")
     public ResponseEntity<List<ArtistLikeResponse>> getArtistLikesByUser(HttpSession session) {
-        List<ArtistLikeResponse> responses = artistLikeService.getArtistLikesByUser(session);g
+        List<ArtistLikeResponse> responses = artistLikeService.getArtistLikesByUser(session);
         return ResponseEntity.ok(responses);
     }
 

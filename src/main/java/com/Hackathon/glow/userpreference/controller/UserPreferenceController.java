@@ -19,8 +19,9 @@ public class UserPreferenceController {
 
 
     @PostMapping("/preferences")
-    public String createPreference(UserPreferenceRequest request, HttpSession session) {
-        userPreferenceService.createPreference(request, session);
+    public String createPreference(@RequestBody UserPreferenceRequest preferenceAnswers, HttpSession session) {
+        userPreferenceService.createPreference(preferenceAnswers, session);
+        System.out.println(preferenceAnswers.getPreferenceAnswers());
         return "취향 생성 성공~";
     }
 
