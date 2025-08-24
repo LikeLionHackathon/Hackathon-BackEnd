@@ -10,8 +10,7 @@ import lombok.*;
 public class ArtistLikeRequest {
 
     //누가
-    private Long fromUserId;
-
     //누구에게
     private Long toUserId;
+
 }
