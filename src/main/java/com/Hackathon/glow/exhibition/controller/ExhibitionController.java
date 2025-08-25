@@ -42,7 +42,7 @@ public class ExhibitionController {
         @RequestPart(value = "artworkImages", required = false) List<MultipartFile> artworkImages,
         HttpSession session
     ) {
-
+        System.out.println("컨틀로러 통과");
         return ResponseEntity.ok(
             exhibitionService.register(request, posterImage, artworkImages, session));
     }

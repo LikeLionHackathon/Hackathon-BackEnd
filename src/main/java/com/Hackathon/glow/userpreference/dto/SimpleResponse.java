@@ -17,6 +17,7 @@ public class SimpleResponse {
     private LocalDate startDate;
 
     private LocalDate endDate;
+    private String posterImageUrl;
 
     private List<String> tags;
 
@@ -27,5 +28,6 @@ public class SimpleResponse {
         this.startDate = e.getStartDate();
         this.endDate = e.getEndDate();
         this.tags = tags;
+        this.posterImageUrl = e.getPosterImageUrl();
     }
 }

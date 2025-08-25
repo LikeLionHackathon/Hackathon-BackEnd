@@ -21,6 +21,7 @@ import java.time.LocalDate;
      */
 public class ArtistExhibitionResponseDto {
 
+    private Long exhibitionId;
     private  Long artistId;
     private  String title;
     private LocalDate startDate;
@@ -29,6 +30,7 @@ public class ArtistExhibitionResponseDto {
 
     public static ArtistExhibitionResponseDto from(ArtistExhibition artistExhibition) {
         return ArtistExhibitionResponseDto.builder()
+            .exhibitionId(artistExhibition.getExhibition().getId())
                 .artistId(artistExhibition.getUser().getUserId())
                 .title(artistExhibition.getExhibition().getTitle())
                 .startDate(artistExhibition.getExhibition().getStartDate())

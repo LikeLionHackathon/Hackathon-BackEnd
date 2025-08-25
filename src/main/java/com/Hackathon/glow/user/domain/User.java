@@ -24,7 +24,7 @@ public class User {
 
     private String email;
 
-    private String profileImageUrl;
+    private String profileImageUrl = "https://mutsa-s3-prac.s3.us-east-1.amazonaws.com/mainProfile.svg";
 
     @Enumerated(EnumType.STRING)
     private UserType userType;

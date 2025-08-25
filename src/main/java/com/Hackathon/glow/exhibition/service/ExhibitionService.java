@@ -108,6 +108,8 @@ public class ExhibitionService {
     public Long register(ExhibitionRequest exhibitionRequest, MultipartFile posterImage,
         List<MultipartFile> artworkImages,
         HttpSession session) {
+
+        System.out.println("exhibitoin생성 서비스 메소드");
         //aws 이미지 등록
         String postImageUrl;
         List<String> artworkImageUrls;
@@ -134,6 +136,7 @@ public class ExhibitionService {
             exhibitionArtworkRepository.save(exhibitionArtwork);
         }
 
+        System.out.println("작가 등록 전까지");
         //함께하는 작가 등록
         List<User> artists = new ArrayList<>();
         artists.add(authService.getLoginUser(session));
