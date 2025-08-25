@@ -27,7 +27,7 @@ public class ExhibitionRate {
 
     @NotNull
     @Min(1) @Max(5)
-    private int rate;
+    private double rate;
 
 
     @ManyToOne

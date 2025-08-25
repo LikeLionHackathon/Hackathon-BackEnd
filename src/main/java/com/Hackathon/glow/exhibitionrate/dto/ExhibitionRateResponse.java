@@ -16,7 +16,7 @@ public class ExhibitionRateResponse {
     private Long userId;      // 작성자 ID
     private Long exhibitionId;
 
-    private int rate;
+    private double rate;
     public static ExhibitionRateResponse from(ExhibitionRate rate) {
         return ExhibitionRateResponse.builder()
                 .exhibitionrateId(rate.getId())

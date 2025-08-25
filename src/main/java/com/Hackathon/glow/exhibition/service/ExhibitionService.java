@@ -26,6 +26,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -104,6 +105,19 @@ public class ExhibitionService {
             .toList();
     }
 
+    public List<ExhibitionSearchResponse> getExhibitionListRandomly() {
+        List<Exhibition> exhibitions = exhibitionRepository.findAll();
+
+        //랜덤으로 섞음 ..
+        Collections.shuffle(exhibitions);
+
+        //원하는 개수만큼 출력하기 : 3개 ..
+        return exhibitions.stream()
+            .limit(3)
+            .map(ExhibitionSearchResponse::from)
+            .collect(Collectors.toList());
+
+    }
 
     public Long register(ExhibitionRequest exhibitionRequest, MultipartFile posterImage,
         List<MultipartFile> artworkImages,
@@ -193,24 +207,24 @@ public class ExhibitionService {
                         e.getId())
                     .stream().map(artistExhibition -> UserResponse.of(artistExhibition.getUser()))
                     .toList();
-                return new VisitedExhibitionDto(e, artists);
+
+                return new VisitedExhibitionDto(e, artists, er.getRate());
             }).toList();
     }
+        //전시 검색
+        public List<ExhibitionSearchResponse> getSearchedExhibitions (String title)
+        {
+            List<Exhibition> exhibitions = exhibitionRepository.findByTitleContaining(title);
 
-
-    //전시 검색
-    public List<ExhibitionSearchResponse> getSearchedExhibitions(String title)
-    {
-        List<Exhibition> exhibitions = exhibitionRepository.findByTitleContaining(title);
-
-
-        return exhibitions.stream().map(ExhibitionSearchResponse::from)
+            return exhibitions.stream().map(ExhibitionSearchResponse::from)
                 .collect(Collectors.toList());
-    }
+        }
 
 //    //진행중인 전시 조회
 //    public ExhibitionResponse getExhibitionByRegisteredDate(LocalDate registeredDate)
 //    {
 //
 //    }
+
 }
+

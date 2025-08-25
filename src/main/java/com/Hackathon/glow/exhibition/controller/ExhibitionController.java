@@ -131,6 +131,11 @@ public class ExhibitionController {
         return exhibitionService.getExhibition(exhibitionId);
     }
 
+    @GetMapping("/random")
+    public List<ExhibitionSearchResponse> getRandomExhibitions() {
+        return exhibitionService.getExhibitionListRandomly();
+    }
+
     //내가 방문한 전시
     @GetMapping("/visited")
     public List<VisitedExhibitionDto> getVisitedExhibition(HttpSession session) {

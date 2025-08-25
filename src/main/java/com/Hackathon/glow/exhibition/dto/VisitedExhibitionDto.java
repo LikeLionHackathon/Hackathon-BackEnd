@@ -13,7 +13,7 @@ public class VisitedExhibitionDto {
 
     String title;
 
-    int rate;
+    double rate;
 
     LocalDate startDate;
 
@@ -21,10 +21,11 @@ public class VisitedExhibitionDto {
 
     List<UserResponse> artists;
 
-    public VisitedExhibitionDto(Exhibition e, List<UserResponse> artists) {
+    public VisitedExhibitionDto(Exhibition e, List<UserResponse> artists,double rate) {
         this.exhibitionId = e.getId();
         this.title = e.getTitle();
         this.posterImageUrl = e.getPosterImageUrl();
+        this.rate = rate;
         this.artists = artists;
         this.startDate = e.getStartDate();
     }
