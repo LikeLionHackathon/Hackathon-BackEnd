@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 
@@ -19,6 +20,7 @@ public interface ExhibitionRepository extends JpaRepository<Exhibition, Long> {
     //전시 검색 (제목으로)
     List<Exhibition> findByTitle(String title);
     List<Exhibition> findByTitleContaining(String title);
+    Optional<Exhibition> findFirstByOrderByRegisteredDateDesc();
 }
 
 //전시 등록정보 조회

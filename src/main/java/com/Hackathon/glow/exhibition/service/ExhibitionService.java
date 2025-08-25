@@ -205,9 +205,25 @@ public class ExhibitionService {
                 .collect(Collectors.toList());
     }
 
-    //진행중인 전시 조회
-    public ExhibitionResponse getExhibitionByRegisteredDate(LocalDate registeredDate)
+
+    //진행중인 나의 전시 조회 ( 카드형식으로 불러오기 )
+    public ExhibitionCardResponse getMyExhibitionByRegisteredDate(HttpSession session)
+    {
+        User user = authService.getLoginUser(session);
+        Exhibition exhibition=exhibitionRepository.findFirstByOrderByRegisteredDateDesc()
+                .orElseThrow(() -> new IllegalArgumentException("전시가 존재하지 않습니다."));
+
+        return ExhibitionCardResponse.from(exhibition);
+    }
+
+    //진행중인 작가의 전시 조회 ( 카드형식으로 불러오기 )
+
+    public ExhibitionCardResponse getExhibitionByRegisteredDate()
     {
 
+        Exhibition exhibition=exhibitionRepository.findFirstByOrderByRegisteredDateDesc()
+                .orElseThrow(() -> new IllegalArgumentException("전시가 존재하지 않습니다."));
+
+        return ExhibitionCardResponse.from(exhibition);
     }
 }

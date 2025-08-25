@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -143,5 +144,18 @@ public class ExhibitionController {
 
         return exhibitionService.getSearchedExhibitions(title);
 
+    }
+
+    //진행중인 전시 조회 ( 나의 전시 )
+    @GetMapping("/my/ongoing")
+    public ExhibitionCardResponse getMyOngoingExhibition(HttpSession session)
+    {
+        return exhibitionService.getMyExhibitionByRegisteredDate(session);
+    }
+
+    //진행중인 전시 조회 ( 작가의 전시 - 작가상세페이지 )
+    @GetMapping("/ongoing/{userId}")
+    public ExhibitionCardResponse getOngoingExhibition(@PathVariable Long userId) {
+        return exhibitionService.getExhibitionByRegisteredDate();
     }
 }
